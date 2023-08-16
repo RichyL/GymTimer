@@ -9,6 +9,8 @@
         public int IntroTime { get; set; }
 
         List<Routine> routines { get; set;}
+
+        public string RoutineFileName { get; set; }
     }
 
     public class Round

@@ -1,14 +1,15 @@
-﻿namespace GUI.Views;
+﻿using GUI.ViewModels;
+
+namespace GUI.Views;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
 
-	public MainPage()
+	public MainPage(MainViewModel viewModel)
 	{
+		this.BindingContext = viewModel;
 		InitializeComponent();
 	}
-
 	
 }
 
