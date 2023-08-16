@@ -11,6 +11,11 @@
         List<Routine> routines { get; set;}
 
         public string RoutineFileName { get; set; }
+
+        /// <summary>
+        /// TODO: implement this
+        /// </summary>
+        public string Summary { get;  }
     }
 
     public class Round

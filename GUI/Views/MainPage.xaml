@@ -5,6 +5,7 @@
              xmlns:Models="clr-namespace:TimingService;assembly=TimingService"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              mc:Ignorable="d"
              x:Class="GUI.Views.MainPage"
              x:DataType="ViewModels:MainViewModel"
@@ -23,6 +24,11 @@
                 HorizontalOptions="Center" />
 
             <ListView ItemsSource="{Binding Routines}">
+                <ListView.Behaviors>
+                    <toolkit:EventToCommandBehavior EventName="ItemSelected" Command="{Binding RoutineSelectedCommand}" >
+                        
+                    </toolkit:EventToCommandBehavior>
+                </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="ViewModels:RoutineViewModel">
                         <ViewCell>
