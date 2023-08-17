@@ -21,6 +21,8 @@ namespace GUI.ViewModels
 
         public MainViewModel()
         {
+          
+
             Routines =new ObservableCollection<Routine>();
             for(int i = 0; i < 60; ++i)
             {

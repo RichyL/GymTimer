@@ -25,9 +25,12 @@ public static class MauiProgram
 		builder.Services.AddTransient<MainViewModel>();
 		builder.Services.AddTransient<MainPage>();
 
+		builder.Services.AddTransient<SummaryViewModel>();
+        builder.Services.AddTransient<SummaryView>();
+
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
 		return builder.Build();
