@@ -23,7 +23,7 @@ public static class MauiProgram
 
 		//builder.Services.AddSingleton(ITimingService,)
 		builder.Services.AddTransient<MainViewModel>();
-		builder.Services.AddTransient<MainPage>();
+		builder.Services.AddTransient<MainView>();
 
 		builder.Services.AddTransient<SummaryViewModel>();
         builder.Services.AddTransient<SummaryView>();

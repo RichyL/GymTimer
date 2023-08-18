@@ -3,18 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using TimingService;
 
 namespace GUI.ViewModels
 {
-    public partial class SummaryViewModel : ObservableObject
-    {
+    public partial class SummaryViewModel : ObservableObject, IQueryAttributable
+	{
         public ObservableCollection<Round> Rounds { get; set; }
 
         [ObservableProperty]
         private string name;
+
+        [ObservableProperty]
+        private int intro;
+
+        private Routine _routine;
+
 
         public SummaryViewModel()
         {
@@ -28,5 +35,14 @@ namespace GUI.ViewModels
             }
 
         }
-    }
+
+		public void ApplyQueryAttributes(IDictionary<string, object> query)
+		{
+            _routine = query["Message"] as Routine;
+            Name = _routine.Name;
+            Intro = _routine.IntroTime;
+            OnPropertyChanged(nameof(Name));
+			OnPropertyChanged(nameof(Intro));
+		}
+	}
 }

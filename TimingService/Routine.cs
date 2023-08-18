@@ -8,8 +8,8 @@
 
         public int IntroTime { get; set; }
 
-        List<Routine> routines { get; set;}
-
+        public List<Round> Rounds { get; set; } = new();
+        
         public string RoutineFileName { get; set; }
 
         /// <summary>

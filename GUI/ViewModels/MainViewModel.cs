@@ -24,17 +24,24 @@ namespace GUI.ViewModels
           
 
             Routines =new ObservableCollection<Routine>();
-            for(int i = 0; i < 60; ++i)
-            {
-                Routines.Add(new Routine() { Name = $"Routine {i}" });
-            }
 
-        }
+            Routine r = new Routine() { Name = "Test Routine", Description = "THis is a description", IntroTime = 20 };
+            r.Rounds.Add(new Round() { ExerciseTime = 40, RestTime = 20 });
+			r.Rounds.Add(new Round() { ExerciseTime = 30, RestTime = 30 });
+			Routines.Add(r);
+
+			r = new Routine() { Name = "Test Routine 2", Description = "XXXX", IntroTime = 30 };
+			r.Rounds.Add(new Round() { ExerciseTime = 10, RestTime = 120 });
+			r.Rounds.Add(new Round() { ExerciseTime = 30, RestTime = 130 });
+
+			Routines.Add(r);
+		}
 
         [RelayCommand]
-        private void RoutineSelected(object item)
+        private async Task RoutineSelected(object item)
         {
-            Console.WriteLine();
+			var navigationParameter = new Dictionary<string, object> { { "Message", item } };
+            await Shell.Current.GoToAsync("summaryview", navigationParameter);
         }
 
     }

@@ -7,17 +7,18 @@
     xmlns:views="clr-namespace:GUI.Views"
     Shell.FlyoutBehavior="Disabled">
 
-    <!--<ShellContent
+    <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate views:MainPage}"
-        Route="MainPage" />-->
+        ContentTemplate="{DataTemplate views:MainView}"
+        Route="MainPage" />
 
-    <TabBar>
+    <!--<TabBar>
         <ShellContent Title="Main"
-                     ContentTemplate="{DataTemplate views:NewPage1}" />
+                     ContentTemplate="{DataTemplate views:MainView}" />
         <ShellContent Title="Summary"
                      ContentTemplate="{DataTemplate views:SummaryView}" />
-    </TabBar>
+        
+    </TabBar>-->
 
 
 </Shell>
