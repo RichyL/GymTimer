@@ -5,7 +5,7 @@ using TimingService;
 
 namespace GUI.ViewModels
 {
-	internal partial class RoutineViewModel : ObservableObject
+	public partial class RoutineViewModel : ObservableObject
     {
 		[ObservableProperty]
 		private string? name;
@@ -35,7 +35,7 @@ namespace GUI.ViewModels
         public ObservableCollection<RoundViewModel> ListOfRounds { get; set; }
     }
 
-    internal partial class RoundViewModel : ObservableObject
+    public partial class RoundViewModel : ObservableObject
     {
         [ObservableProperty]
         private int exerciseTime;

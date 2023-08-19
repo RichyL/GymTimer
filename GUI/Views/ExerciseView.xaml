@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:Converters="clr-namespace:GUI.ValueConverters"
              xmlns:ViewModels="clr-namespace:GUI.ViewModels"
+             xmlns:Controls="clr-namespace:GUI.Controls"
              x:DataType="ViewModels:ExerciseViewModel"
              x:Class="GUI.Views.ExerciseView"
              Title="ExerciseView">
@@ -11,18 +12,30 @@
         <Converters:TimeConverter x:Key="ShowTimeConverter" >
         </Converters:TimeConverter>
     </ContentPage.Resources>
-    
-    
+
+
     <VerticalStackLayout>
         <Label 
             Text="{Binding Name}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        
 
-    <VerticalStackLayout>
+
+        <VerticalStackLayout>
             <Label Text="Intro Time:"/>
             <Label Text="{Binding IntroTime,Converter={StaticResource ShowTimeConverter}}"/>
-        </VerticalStackLayout>  
+        </VerticalStackLayout>
+
+
+        <ListView ItemsSource="{Binding Rounds}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="ViewModels:RoutineViewModel">
+                    <ViewCell>
+                        <Controls:RoundView BindingContext="{Binding .}"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
     </VerticalStackLayout>
 </ContentPage>

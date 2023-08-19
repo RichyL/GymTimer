@@ -28,7 +28,7 @@
 
 
 
-            <ListView ItemsSource="{Binding Routines}"  >
+            <ListView ItemsSource="{Binding Routines}">
                 <ListView.Behaviors>
                     <toolkit:EventToCommandBehavior EventName="ItemSelected" Command="{Binding RoutineSelectedCommand}" EventArgsConverter="{StaticResource SelectedItemEventArgsConverter}" >
                     </toolkit:EventToCommandBehavior>
