@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TimingService
+﻿namespace TimingService
 {
-    public interface ITimingService
+	public interface ITimingService
     {
         event EventHandler TickEvent;
 

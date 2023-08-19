@@ -27,10 +27,13 @@ public static class MauiProgram
 
 		builder.Services.AddTransient<SummaryViewModel>();
         builder.Services.AddTransient<SummaryView>();
+		
+		builder.Services.AddTransient<ExerciseViewModel>();
+		builder.Services.AddTransient<ExerciseView>();
 
 
 #if DEBUG
-        builder.Logging.AddDebug();
+		builder.Logging.AddDebug();
 #endif
 
 		return builder.Build();

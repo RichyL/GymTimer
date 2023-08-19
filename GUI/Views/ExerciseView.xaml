@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Converters="clr-namespace:GUI.ValueConverters"
+             xmlns:ViewModels="clr-namespace:GUI.ViewModels"
+             x:DataType="ViewModels:ExerciseViewModel"
+             x:Class="GUI.Views.ExerciseView"
+             Title="ExerciseView">
+
+    <ContentPage.Resources>
+        <Converters:TimeConverter x:Key="ShowTimeConverter" >
+        </Converters:TimeConverter>
+    </ContentPage.Resources>
+    
+    
+    <VerticalStackLayout>
+        <Label 
+            Text="{Binding Name}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        
+
+    <VerticalStackLayout>
+            <Label Text="Intro Time:"/>
+            <Label Text="{Binding IntroTime,Converter={StaticResource ShowTimeConverter}}"/>
+        </VerticalStackLayout>  
+    </VerticalStackLayout>
+</ContentPage>

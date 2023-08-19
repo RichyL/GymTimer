@@ -1,24 +1,20 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using TimingService;
 
 namespace GUI.ViewModels
 {
-    public partial class SummaryViewModel : ObservableObject, IQueryAttributable
+	public partial class SummaryViewModel : ObservableObject, IQueryAttributable
 	{
         public ObservableCollection<Round> Rounds { get; set; }
 
         [ObservableProperty]
-        private string name;
+        private string? name;
 
         [ObservableProperty]
-        private int intro;
+        private int introTime;
+
 
         private Routine _routine;
 
@@ -26,7 +22,6 @@ namespace GUI.ViewModels
         public SummaryViewModel()
         {
 
-            //this.Name = "Demo";
 
             Rounds = new ObservableCollection<Round>();
             for (int i = 0; i < 60; ++i)
@@ -40,9 +35,24 @@ namespace GUI.ViewModels
 		{
             _routine = query["Message"] as Routine;
             Name = _routine.Name;
-            Intro = _routine.IntroTime;
+            IntroTime = _routine.IntroTime;
+
+            Rounds = new ObservableCollection<Round>();
+            for(int i=0; i < _routine.Rounds.Count; ++i)
+            {
+                Rounds.Add(_routine.Rounds[i]);
+            }
             OnPropertyChanged(nameof(Name));
-			OnPropertyChanged(nameof(Intro));
+			OnPropertyChanged(nameof(IntroTime));
+            OnPropertyChanged(nameof(Rounds));
 		}
+
+		[RelayCommand]
+		private async Task RunRoutine()
+		{
+			var navigationParameter = new Dictionary<string, object> { { "Message", _routine } };
+			await Shell.Current.GoToAsync("exerciseview", navigationParameter);
+		}
+
 	}
 }

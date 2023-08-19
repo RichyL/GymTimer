@@ -15,13 +15,13 @@
 
         <HorizontalStackLayout>
             <Label Text="Intro Time:" />
-            <Label Text="{Binding Intro}" />
+            <Label Text="{Binding IntroTime}" />
         </HorizontalStackLayout>
 
         
         <ListView ItemsSource="{Binding Rounds}"  >
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="Models:Round">
+                <DataTemplate x:DataType="ViewModels:RoundViewModel">
                     <ViewCell>
                         <Controls:RoundView BindingContext="." />
                     </ViewCell>
@@ -30,8 +30,8 @@
         </ListView>
 
         <HorizontalStackLayout>
-            <Button Text="Edit" />
-            <Button Text="Go!" />
+            <Button Text="Edit" IsEnabled="False"/>
+            <Button Text="Go!" Command="{Binding RunRoutineCommand}"/>
         </HorizontalStackLayout>
 
         </VerticalStackLayout>
