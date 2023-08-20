@@ -22,5 +22,16 @@
     {
         public int ExerciseTime { get; set; }
         public int RestTime { get; set; }
+
+        public Round()
+        {
+                
+        }
+
+        public Round(int eTime, int rTime)
+        {
+            ExerciseTime = eTime;
+            RestTime = rTime;
+        }
     }
 }
