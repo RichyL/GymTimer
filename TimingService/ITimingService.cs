@@ -16,29 +16,27 @@ namespace TimingService
     public class TickEventArgs : EventArgs
     {
         public bool IsIntro { get; set; }
+        public bool IsExercise { get; set; }
+        public bool IsRest { get ; set; }
 
         public bool IsFinished { get; set; }
 
-        public int IntroTimeLeft;
-        public int ExerciseTimeLeft;
-        public int RestTImeLeft;
+        public int TimeLeftInState;
         public int CurrentRound;
 
 		public override string ToString()
 		{
 			StringBuilder sb=new StringBuilder();
-            if(IsIntro)
-            {
-                sb.Append($"INTRO - Time left:{IntroTimeLeft} -- Round = {CurrentRound}. ExerciseTime = {ExerciseTimeLeft} RestTime = {RestTImeLeft}");
-            }
+            
+            //sb.Append($"INTRO - Time left:{IntroTimeLeft}  Round = {CurrentRound}. ExerciseTime = {ExerciseTimeLeft} RestTime = {RestTImeLeft}");
 
-            if (!IsIntro)
-            {
-                sb.Append($"EXERCISING: Round = {CurrentRound}. ExerciseTime = {ExerciseTimeLeft} RestTime = {RestTImeLeft}");
-            }
+            if (IsIntro) { sb.Append($"INTRO - Time left {TimeLeftInState}");  }
+			if (IsExercise) { sb.Append($"Exercising - Time left {TimeLeftInState}");  }
+			if (IsRest) { sb.Append($"Resting - Time left {TimeLeftInState}"); }
 
-            if (IsFinished)
+			if (IsFinished)
             {
+                sb.Append(Environment.NewLine);
                 sb.Append("FINISHED!!!!");
             }
 

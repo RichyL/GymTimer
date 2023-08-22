@@ -25,37 +25,46 @@ namespace TimingServiceTest
 		public void Start()
 		{
 			//service.StartRoutine();
-			TickEventArgs args = service.Test();
+			TickEventArgs args = service.HandleTick();
 			Console.WriteLine(args);
 
-			args = service.Test();
+			args = service.HandleTick();
 			Console.WriteLine(args);
 
-			args = service.Test();
+			args = service.HandleTick();
 			Console.WriteLine(args);
 
-			args = service.Test();
+			args = service.HandleTick();
 			Console.WriteLine(args);
 
-			args = service.Test();
+			args = service.HandleTick();
 			Console.WriteLine(args);
 
-			args = service.Test();
+			args = service.HandleTick();
 			Console.WriteLine(args);
 
-			args = service.Test();
+			args = service.HandleTick();
 			Console.WriteLine(args);
 
-			args = service.Test();
+			args = service.HandleTick();
 			Console.WriteLine(args);
 
-			args = service.Test();
+			args = service.HandleTick();
 			Console.WriteLine(args);
 
-			args = service.Test();
+			args = service.HandleTick();
 			Console.WriteLine(args);
 
-			args = service.Test();
+			args = service.HandleTick();
+			Console.WriteLine(args);
+
+			args = service.HandleTick();
+			Console.WriteLine(args);
+
+			args = service.HandleTick();
+			Console.WriteLine(args);
+
+			args = service.HandleTick();
 			Console.WriteLine(args);
 		}
 

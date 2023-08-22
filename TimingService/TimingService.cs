@@ -14,13 +14,7 @@ namespace TimingService
 
 		private System.Timers.Timer _timer;
 
-		private int _introTimeLeft;
-		private int _exerciseTimeLeft;
-		private int _restTimeLeft;
-		private int _currentRound;
-		private bool _inIntroState = false;
-		private bool _isFinished = false;
-
+	
         public TimingClass()
         {
             _routine = new Routine();
@@ -35,89 +29,69 @@ namespace TimingService
 
 		public void _timer_Elapsed(object sender, ElapsedEventArgs e)
 		{
-			TickEventArgs eventObject = new TickEventArgs();
-
-			if(_inIntroState)
-			{
-				_introTimeLeft--;
-
-				if (_introTimeLeft == 0) { _inIntroState = false; }
-			}
-
-			if(!_inIntroState)
-			{
-				
-				
-				if(_restTimeLeft <=0)
-				{
-					_currentRound++;
-
-					if (_currentRound == 0)
-					{
-						_isFinished = true;
-					}
-					else
-					{ 
-					_exerciseTimeLeft = _routine.Rounds[_currentRound].ExerciseTime;
-					_restTimeLeft = _routine.Rounds[_currentRound].RestTime;
-					}
-				}
-
-				if (_exerciseTimeLeft <= 0) _restTimeLeft--;
-				_exerciseTimeLeft--;
-
-			}
-
-			eventObject.IntroTimeLeft = _introTimeLeft;
-			eventObject.ExerciseTimeLeft = _exerciseTimeLeft;
-			eventObject.RestTImeLeft = _restTimeLeft;
-			eventObject.CurrentRound = _currentRound;
-			eventObject.IsFinished = _isFinished;	
-
+			TickEventArgs eventObject = HandleTick();
 			TickEvent?.Invoke(this, eventObject);
 		}
 
-		public TickEventArgs Test()
+		public TickEventArgs HandleTick()
 		{
 			TickEventArgs eventObject = new TickEventArgs();
 
-			if (_inIntroState)
-			{
-				_introTimeLeft--;
+			eventObject.IsIntro = _isIntro;
+			eventObject.IsExercise = _isExercise;
+			eventObject.IsRest = _isRest;
+			eventObject.TimeLeftInState = _countDownTime;
 
-				if (_introTimeLeft == 0) { _inIntroState = false; }
+			//Transition from Intro to Exercise
+			if(_isIntro && _countDownTime ==1)
+			{
+				_isIntro = false;
+				_isExercise = true;
+				_isRest = false;
+
+				//Put exercise time into _countDownTime
+				_countDownTime = _routine.Rounds[_roundCount].ExerciseTime;
+				return eventObject;
 			}
 
-			if (!_inIntroState)
+			//transition from Exercise To Rest
+			if(_isExercise && _countDownTime ==1 )
 			{
-				if (_exerciseTimeLeft >0)  _exerciseTimeLeft--;
-				if (_exerciseTimeLeft <= 0) _restTimeLeft--;
-				if (_restTimeLeft <= 0)
-				{
-					_currentRound++;
+				_isIntro=false;
+				_isExercise = false;
+				_isRest = true;
 
-					if (_currentRound > _routine.Rounds.Count - 1)
-					{
-						_isFinished = true;
-					}
-					else
-					{
-						_exerciseTimeLeft = _routine.Rounds[_currentRound].ExerciseTime;
-						_restTimeLeft = _routine.Rounds[_currentRound].RestTime;
-					}
+				//Put rest time into _countDownTime
+				_countDownTime = _routine.Rounds[_roundCount].RestTime;
+				return eventObject;
+			}
+
+			//transition from Rest to Exercise
+			if(_isRest && _countDownTime ==1 )
+			{
+				_isIntro=false;
+				_isExercise = true;
+				_isRest = false;
+
+				_roundCount++;
+				if(_roundCount > _routine.Rounds.Count - 1)
+				{
+					_isIntro = false; _isExercise = false; _isRest = false; _isFinished = true;
+					eventObject.IsFinished=_isFinished;
 				}
 
+				//Put next round exercise time into _countDownTime
+				_countDownTime = _routine.Rounds[_countDownTime].ExerciseTime;
+				return eventObject;
 			}
 
-			eventObject.IntroTimeLeft = _introTimeLeft;
-			eventObject.ExerciseTimeLeft = _exerciseTimeLeft;
-			eventObject.RestTImeLeft = _restTimeLeft;
-			eventObject.CurrentRound = _currentRound;
-			eventObject.IsIntro = _inIntroState;
-			eventObject.IsFinished = _isFinished;
+			_countDownTime--;
 
 			return eventObject;
 		}
+
+
+	
 
 		public void StartRoutine()
 		{
@@ -131,6 +105,13 @@ namespace TimingService
 			_timer.Stop();
 		}
 
+		int _countDownTime = 0;
+		bool _isIntro = false;
+		bool _isExercise = false;
+		bool _isRest = false;
+		bool _isFinished = false;
+		int _roundCount = 0;
+
 		public void SetRoutine(Routine routine)
 		{
 			_routine = routine;
@@ -138,13 +119,31 @@ namespace TimingService
 			if (_routine is null) throw new RoutineNotFoundException("No routine has been specified");
 			if (routine.Rounds is null || routine.Rounds.Count == 0) throw new RoutineNotFoundException("The routine passed does not have any exercise periods defined in it");
 
-			_introTimeLeft = routine.IntroTime;
-			_exerciseTimeLeft = routine.Rounds[0].ExerciseTime;
-			_restTimeLeft = routine.Rounds[0].RestTime;
-			_currentRound = 0;
 
-			_inIntroState = (_introTimeLeft > 0);
-			_isFinished = false;
+			if (_routine.IntroTime > 0)
+			{
+				_countDownTime = routine.IntroTime;
+				_isIntro = true;
+			}
+			else if (_routine.Rounds[0].ExerciseTime > 0)
+			{
+				_countDownTime = _routine.Rounds[0].ExerciseTime;
+				_isExercise = true;
+			}
+
+
+			//_introTimeLeft = routine.IntroTime - 1;
+			//_exerciseTimeLeft = routine.Rounds[0].ExerciseTime;
+			//_restTimeLeft = routine.Rounds[0].RestTime;
+			//_currentRound = 0;
+
+			//_inIntroState = (_introTimeLeft > 0);
+			//_isFinished = false;
+
+			
+			//_introClicks = (_introTimeLeft > 0)? _introTimeLeft - 1:0;
+			//_exerciseClicks = (_introTimeLeft > 0) ? routine.Rounds[0].ExerciseTime - 1:;
+			//_restClicks = routine.Rounds[0].RestTime;
 		}
 	}
 }
