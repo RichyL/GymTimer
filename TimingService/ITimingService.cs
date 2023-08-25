@@ -11,6 +11,8 @@ namespace TimingService
         void StartRoutine();
 
         void StopRoutine(CancellationToken token);
+
+        TickEventArgs HandleTick();
     }
 
     public class TickEventArgs : EventArgs
@@ -27,9 +29,10 @@ namespace TimingService
 		public override string ToString()
 		{
 			StringBuilder sb=new StringBuilder();
-            
+
             //sb.Append($"INTRO - Time left:{IntroTimeLeft}  Round = {CurrentRound}. ExerciseTime = {ExerciseTimeLeft} RestTime = {RestTImeLeft}");
 
+            sb.AppendLine($"ROUND = {CurrentRound}");
             if (IsIntro) { sb.Append($"INTRO - Time left {TimeLeftInState}");  }
 			if (IsExercise) { sb.Append($"Exercising - Time left {TimeLeftInState}");  }
 			if (IsRest) { sb.Append($"Resting - Time left {TimeLeftInState}"); }

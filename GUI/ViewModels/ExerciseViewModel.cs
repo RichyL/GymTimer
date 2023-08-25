@@ -29,6 +29,9 @@ namespace GUI.ViewModels
 		private bool isResting;
 
 		[ObservableProperty]
+		private bool isFinished;
+
+		[ObservableProperty]
 		private int currentRound;
 
 		[ObservableProperty]
@@ -61,6 +64,8 @@ namespace GUI.ViewModels
 				Rounds.Add(_routine.Rounds[i]);
 			}
 
+			//display 1-indexed 
+			CurrentRound = 1;
 			TotalRounds = Rounds.Count;
 			Summary = $"Round {CurrentRound} of {TotalRounds}";
 
@@ -80,9 +85,11 @@ namespace GUI.ViewModels
 			IsIntro =e.IsIntro;
 			IsExercising = e.IsExercise;
 			IsResting = e.IsRest;
+			IsFinished = e.IsFinished;
 			if (IsIntro) IntroTime = e.TimeLeftInState;
 			if (IsExercising) ExerciseTime = e.TimeLeftInState;
 			if (IsResting) RestTime = e.TimeLeftInState;
+			
 			CurrentRound = e.CurrentRound;
 
 			Summary = $"Round {CurrentRound} of {TotalRounds}";
@@ -92,6 +99,7 @@ namespace GUI.ViewModels
 			OnPropertyChanged(nameof(IsIntro));
 			OnPropertyChanged(nameof(IsExercising));
 			OnPropertyChanged(nameof(IsResting));
+			OnPropertyChanged(nameof(IsFinished));
 
 			OnPropertyChanged(nameof(IntroTime));
 			OnPropertyChanged(nameof(ExerciseTime));
@@ -103,7 +111,9 @@ namespace GUI.ViewModels
 		[RelayCommand]
 		private void Start()
 		{
-			_timingService.StartRoutine();
+			//_timingService.StartRoutine();
+			TickEventArgs tick= _timingService.HandleTick();
+			_timingService_TickEvent(this, tick);
 		}
 
 		[RelayCommand]

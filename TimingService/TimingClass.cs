@@ -41,9 +41,11 @@ namespace TimingService
 			eventObject.IsExercise = _isExercise;
 			eventObject.IsRest = _isRest;
 			eventObject.TimeLeftInState = _countDownTime;
+			//need to display 1-indexed round number to the user
+			eventObject.CurrentRound = _roundCount + 1;
 
 			//Transition from Intro to Exercise
-			if(_isIntro && _countDownTime ==1)
+			if (_isIntro && _countDownTime ==1)
 			{
 				_isIntro = false;
 				_isExercise = true;
@@ -79,6 +81,8 @@ namespace TimingService
 					_isIntro = false; _isExercise = false; _isRest = false; _isFinished = true;
 					eventObject.IsFinished=_isFinished;
 				}
+
+				
 
 				//Put next round exercise time into _countDownTime
 				_countDownTime = _routine.Rounds[_countDownTime].ExerciseTime;
