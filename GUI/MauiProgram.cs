@@ -3,6 +3,8 @@ using CommunityToolkit.Maui.Core;
 using GUI.ViewModels;
 using GUI.Views;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Handlers;
+using TimingService;
 
 namespace GUI;
 
@@ -30,6 +32,8 @@ public static class MauiProgram
 		
 		builder.Services.AddTransient<ExerciseViewModel>();
 		builder.Services.AddTransient<ExerciseView>();
+
+		builder.Services.AddTransient<ITimingService,TimingClass>();
 
 
 #if DEBUG

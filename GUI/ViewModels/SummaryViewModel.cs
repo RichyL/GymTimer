@@ -7,7 +7,7 @@ namespace GUI.ViewModels
 {
 	public partial class SummaryViewModel : ObservableObject, IQueryAttributable
 	{
-        public ObservableCollection<Round> Rounds { get; set; }
+        public ObservableCollection<RoundViewModel> Rounds { get; set; }
 
         [ObservableProperty]
         private string? name;
@@ -23,11 +23,11 @@ namespace GUI.ViewModels
         {
 
 
-            Rounds = new ObservableCollection<Round>();
-            for (int i = 0; i < 60; ++i)
-            {
-                Rounds.Add(new Round() { ExerciseTime=i*2,RestTime=i*3 });
-            }
+            Rounds = new ObservableCollection<RoundViewModel>();
+            //for (int i = 0; i < 60; ++i)
+            //{
+            //    Rounds.Add(new Round() { ExerciseTime=i*2,RestTime=i*3 });
+            //}
 
         }
 
@@ -37,10 +37,10 @@ namespace GUI.ViewModels
             Name = _routine.Name;
             IntroTime = _routine.IntroTime;
 
-            Rounds = new ObservableCollection<Round>();
+            Rounds = new ObservableCollection<RoundViewModel>();
             for(int i=0; i < _routine.Rounds.Count; ++i)
             {
-                Rounds.Add(_routine.Rounds[i]);
+                Rounds.Add(new RoundViewModel( _routine.Rounds[i]) );
             }
             OnPropertyChanged(nameof(Name));
 			OnPropertyChanged(nameof(IntroTime));

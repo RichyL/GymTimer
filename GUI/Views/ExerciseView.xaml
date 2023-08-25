@@ -20,22 +20,31 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
+        
 
-        <VerticalStackLayout>
+        <VerticalStackLayout IsVisible="{Binding IsIntro}">
             <Label Text="Intro Time:"/>
             <Label Text="{Binding IntroTime,Converter={StaticResource ShowTimeConverter}}"/>
         </VerticalStackLayout>
 
+        <Label Text="{Binding Summary}" />
 
-        <ListView ItemsSource="{Binding Rounds}">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="ViewModels:RoutineViewModel">
-                    <ViewCell>
-                        <Controls:RoundView BindingContext="{Binding .}"/>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <VerticalStackLayout IsVisible="{Binding IsExercising}">
+            <Label Text="Intro Time:"/>
+            <Label Text="{Binding ExerciseTime,Converter={StaticResource ShowTimeConverter}}"/>
+        </VerticalStackLayout>
 
+
+        <VerticalStackLayout IsVisible="{Binding IsResting}">
+            <Label Text="Intro Time:"/>
+            <Label Text="{Binding RestTime,Converter={StaticResource ShowTimeConverter}}"/>
+        </VerticalStackLayout>
+
+
+        <HorizontalStackLayout>
+            <Button Text="Start" Command="{Binding StartCommand}" />
+            <Button Text="Stop" Command="{Binding StopCommand}" />
+        </HorizontalStackLayout>
+        
     </VerticalStackLayout>
 </ContentPage>

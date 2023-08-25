@@ -48,5 +48,8 @@ namespace GUI.ViewModels
             ExerciseTime = r.ExerciseTime;
             RestTime = r.RestTime;
         }
+
+        [ObservableProperty]
+        private string richyL;
     }
 }

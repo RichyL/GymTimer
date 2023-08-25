@@ -23,8 +23,10 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="ViewModels:RoundViewModel">
                     <ViewCell>
-                        <Controls:RoundView BindingContext="." />
-                    </ViewCell>
+                            <VerticalStackLayout>
+                                <Controls:RoundView ExerciseTime="{Binding ExerciseTime}" RestTime="{Binding RestTime}" />
+                            </VerticalStackLayout>
+                        </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -96,7 +96,7 @@ namespace TimingService
 		public void StartRoutine()
 		{
 			if (_routine is null) throw new RoutineNotFoundException("No routine has been specified.");
-			//_timer.Start();
+			_timer.Start();
 
 		}
 
