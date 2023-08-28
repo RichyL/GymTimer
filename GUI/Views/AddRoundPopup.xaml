@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             x:Class="GUI.Views.AddRoundPopup"
+             Title="AddRoundPopup">
+    <VerticalStackLayout>
+
+        <HorizontalStackLayout>
+            <Label Text="Exercise:" BackgroundColor="Red"/>
+            <Editor x:Name="ExerciseTimeEntry" BackgroundColor="Tomato" Text="{Binding ExerciseTime}"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout>
+            <Label Text="Rest:"  BackgroundColor="Green"/>
+            <Editor x:Name="RestTimeEntry" BackgroundColor="GreenYellow" Text="{Binding RestTime}"/>
+        </HorizontalStackLayout>
+
+        <Button Text="Save" Command="{Binding SaveRoundCommand}" />
+
+    </VerticalStackLayout>
+    
+</mopups:PopupPage>

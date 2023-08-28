@@ -38,5 +38,11 @@ namespace GUI.ViewModels
             await Shell.Current.GoToAsync("summaryview", navigationParameter);
         }
 
+        [RelayCommand]
+        private async Task AddNewRoutine()
+        {
+            await Shell.Current.GoToAsync("editview");
+        }
+
     }
 }

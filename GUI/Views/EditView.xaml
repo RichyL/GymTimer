@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModels="clr-namespace:GUI.ViewModels"
+             xmlns:Controls="clr-namespace:GUI.Controls"
+             x:Class="GUI.Views.EditView"
+             x:DataType="ViewModels:EditViewModel"
+             Title="EditView">
+    <ScrollView>
+        <VerticalStackLayout>
+
+            <HorizontalStackLayout>
+
+            <Label Text="Name" VerticalOptions="Center" HorizontalOptions="Center" />
+            
+            <Entry IsPassword="False" 
+            Text="{Binding Name,FallbackValue='Enter new name'}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        </HorizontalStackLayout>
+
+
+        <HorizontalStackLayout>
+            <Label Text="Description" VerticalOptions="Center" HorizontalOptions="Center" />
+            <Editor Text="{Binding Description, FallbackValue='Enter a description'}" />
+        </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <Label Text="Intro Time:" />
+                <Entry IsPassword="False" Text="{Binding IntroTime,FallbackValue='Enter an intro time'}" />
+            </HorizontalStackLayout>
+
+
+            <ListView ItemsSource="{Binding Rounds}"  >
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="ViewModels:RoundEditViewModel">
+                        <ViewCell>
+                            <VerticalStackLayout>
+                                <Controls:RoundView ExerciseTime="{Binding ExerciseTime}" RestTime="{Binding RestTime}" />
+                            </VerticalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Text="Add Round" Command="{Binding AddRoundCommand}" />
+
+            <HorizontalStackLayout>
+                <Button Text="Save" Command="{Binding SaveRoutineCommand}"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
