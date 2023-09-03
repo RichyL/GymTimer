@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GUI.Helpers;
+﻿namespace GUI.Helpers;
 
 public static class ServiceHelper
 {
@@ -18,6 +12,7 @@ public static class ServiceHelper
         MauiApplication.Current.Services;
 #elif __IOS__ || __MACCATALYST__
         MauiUIApplicationDelegate.Current.Services;
-    #else
+#else
     null;
 #endif
+}

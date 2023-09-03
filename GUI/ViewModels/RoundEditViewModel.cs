@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using TimingService;
 
 
 namespace GUI.ViewModels

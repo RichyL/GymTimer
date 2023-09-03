@@ -1,6 +1,4 @@
-﻿using TimingService;
-
-namespace TimingServiceTest;
+﻿namespace TimingServiceTest;
 
 
 internal class Program

@@ -8,10 +8,10 @@ namespace GUI.ViewModels
     public partial class RoutineViewModel : ObservableObject
     {
 		[ObservableProperty]
-		private string? name;
+		private string name;
 
 		[ObservableProperty]
-		private string? summary;
+		private string summary;
 
 		[ObservableProperty]
 		private string description;

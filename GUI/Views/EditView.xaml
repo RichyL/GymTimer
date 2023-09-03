@@ -45,6 +45,24 @@
 
             <Button Text="Add Round" Command="{Binding AddRoundCommand}" />
 
+            <VerticalStackLayout IsVisible="{Binding ShowAddRound}">
+                <HorizontalStackLayout>
+                    <Label Text="Exercise:" BackgroundColor="Red"/>
+                    <Editor x:Name="ExerciseTimeEntry" BackgroundColor="Tomato" Text="{Binding ExerciseTime}"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout>
+                    <Label Text="Rest:"  BackgroundColor="Green"/>
+                    <Editor x:Name="RestTimeEntry" BackgroundColor="GreenYellow" Text="{Binding RestTime}"/>
+                </HorizontalStackLayout>
+
+
+                <Button Text="Save" Command="{Binding SaveRoundCommand}" />
+
+                <Label Text="{Binding AddRoundErrorMessage}" IsVisible="{Binding ShowAddRoundErrorMessage}" />
+
+            </VerticalStackLayout>
+
             <HorizontalStackLayout>
                 <Button Text="Save" Command="{Binding SaveRoutineCommand}"/>
             </HorizontalStackLayout>

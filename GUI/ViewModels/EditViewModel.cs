@@ -1,17 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using GUI.Views;
-using Mopups.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GUI.ViewModels;
 public partial class EditViewModel : ObservableObject
 {
+    #region Properties for New Round Entry
+    [ObservableProperty]
+    private int exerciseTime;
+
+    [ObservableProperty]
+    private int restTime;
+    #endregion
+
     [ObservableProperty]
     private string? name;
 
@@ -20,17 +21,15 @@ public partial class EditViewModel : ObservableObject
 
     [ObservableProperty]
     private int introTime;
-    private readonly IPopupNavigation _popupService;
 
     public ObservableCollection<RoundEditViewModel> Rounds { get; set; }
 
 
 
-    public EditViewModel(IPopupNavigation popupService)
+    public EditViewModel()
     {
         Rounds = new ObservableCollection<RoundEditViewModel>();
         Rounds.Add(new RoundEditViewModel(10, 20));
-        _popupService = popupService;
     }
 
     [RelayCommand]
@@ -42,8 +41,34 @@ public partial class EditViewModel : ObservableObject
     [RelayCommand]
     public async Task AddRound()
     {
-        Rounds.Add(new RoundEditViewModel(0, 0));
-        await _popupService.PushAsync(new AddRoundPopup());
+        ShowAddRound=true;
+    }
+
+    [ObservableProperty]
+    private bool showAddRound;
+
+    [ObservableProperty]
+    private bool showAddRoundErrorMessage;
+
+    [ObservableProperty]
+    private string addRoundErrorMessage;
+
+    [RelayCommand]
+    public void SaveRound()
+    {
+        if(ExerciseTime ==0 && RestTime ==0)
+        {
+            AddRoundErrorMessage = "At least one of exercise time or rest time must have a value";
+            ShowAddRoundErrorMessage = true;
+            ShowAddRound = true;
+            OnPropertyChanged(nameof(AddRoundErrorMessage));
+            OnPropertyChanged(nameof(ShowAddRoundErrorMessage));
+            return;
+        }
+
+        Rounds.Add(new RoundEditViewModel(ExerciseTime, RestTime));
+        ShowAddRound = false;
+        ExerciseTime = RestTime = 0;
     }
 
     //private bool CanAddRound()

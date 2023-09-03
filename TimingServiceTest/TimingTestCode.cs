@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TimingService;
+﻿using TimingService;
 
 namespace TimingServiceTest
 {
-	public class TimingTestCode
+    public class TimingTestCode
 	{
 		TimingClass service = new TimingClass();
 

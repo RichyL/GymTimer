@@ -3,11 +3,7 @@ using CommunityToolkit.Maui.Core;
 using GUI.ViewModels;
 using GUI.Views;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Handlers;
 using TimingService;
-using Mopups.Hosting;
-using Mopups.Interfaces;
-using Mopups.Services;
 
 namespace GUI;
 
@@ -20,7 +16,6 @@ public static class MauiProgram
 			.UseMauiApp<App>()
             .UseMauiCommunityToolkitCore()
             .UseMauiCommunityToolkit()
-			.ConfigureMopups()
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -41,8 +36,7 @@ public static class MauiProgram
 		builder.Services.AddTransient<EditView>();
 
 		builder.Services.AddSingleton<ITimingService,TimingClass>();
-		builder.Services.AddSingleton <IPopupNavigation>(MopupService.Instance);
-
+		
 
 #if DEBUG
 		builder.Logging.AddDebug();
