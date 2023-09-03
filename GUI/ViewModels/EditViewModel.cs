@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using TimingService;
 
 namespace GUI.ViewModels;
 public partial class EditViewModel : ObservableObject
@@ -26,16 +27,29 @@ public partial class EditViewModel : ObservableObject
 
 
 
-    public EditViewModel()
+    public EditViewModel(IRoutineHandlingService timingService)
     {
         Rounds = new ObservableCollection<RoundEditViewModel>();
         Rounds.Add(new RoundEditViewModel(10, 20));
+        _fileService = timingService;
     }
 
     [RelayCommand]
-    public void SaveRoutine()
+    public async Task SaveRoutine()
     {
 
+        Routine routine = new Routine();
+        routine.Name = Name;
+        routine.Description = Description;
+        routine.IntroTime = IntroTime;
+        
+        foreach(RoundEditViewModel model in Rounds)
+        {
+            routine.Rounds.Add(new Round(model.ExerciseTime, model.RestTime));
+        }
+
+
+        await _fileService.WriteRoutineInfoAsync(routine);
     }
 
     [RelayCommand]
@@ -52,6 +66,7 @@ public partial class EditViewModel : ObservableObject
 
     [ObservableProperty]
     private string addRoundErrorMessage;
+    private readonly IRoutineHandlingService _fileService;
 
     [RelayCommand]
     public void SaveRound()
@@ -69,6 +84,7 @@ public partial class EditViewModel : ObservableObject
         Rounds.Add(new RoundEditViewModel(ExerciseTime, RestTime));
         ShowAddRound = false;
         ExerciseTime = RestTime = 0;
+        
     }
 
     //private bool CanAddRound()

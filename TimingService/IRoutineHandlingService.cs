@@ -2,10 +2,10 @@
 {
     public interface IRoutineHandlingService
 	{
-		bool ReadRoutineInfo();
+        Task<List<Routine>> ReadRoutineInfoAsync();
 
-		bool WriteRoutineInfo();
+        Task WriteRoutineInfoAsync(Routine routine);
 
-		bool LoadRoutine(string routineName);
+		Task<Routine> LoadRoutineAsync(string routineName);
 	}
 }

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUI", "GUI\GUI.csproj", "{9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimingService", "TimingService\TimingService.csproj", "{45BC035A-1769-4795-96B5-9F8816686314}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimingServiceTest", "TimingServiceTest\TimingServiceTest.csproj", "{452EB4F8-4037-4636-A464-8CBD9D6133B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimingServiceTest", "TimingServiceTest\TimingServiceTest.csproj", "{452EB4F8-4037-4636-A464-8CBD9D6133B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

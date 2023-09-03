@@ -36,6 +36,7 @@ public static class MauiProgram
 		builder.Services.AddTransient<EditView>();
 
 		builder.Services.AddSingleton<ITimingService,TimingClass>();
+		builder.Services.AddSingleton<IRoutineHandlingService,RoutineHandlingClass>();
 		
 
 #if DEBUG
