@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 using TimingService;
 
 namespace GUI.ViewModels
@@ -31,18 +33,41 @@ namespace GUI.ViewModels
 			Routines.Add(r);
 		}
 
+        [ObservableProperty]
+		[NotifyCanExecuteChangedFor(nameof(EditRoutineCommand))]
+		private Routine selectedRoutine;
+
         [RelayCommand]
-        private async Task RoutineSelected(object item)
+        private void RoutineSelected(object item)
         {
-			var navigationParameter = new Dictionary<string, object> { { "Message", item } };
-            await Shell.Current.GoToAsync("summaryview", navigationParameter);
-        }
+            SelectedRoutine = (Routine)item;
+			OnPropertyChanged(nameof(SelectedRoutine));
+
+		}
 
         [RelayCommand]
         private async Task AddNewRoutine()
         {
-            await Shell.Current.GoToAsync("editview");
+            await Shell.Current.GoToAsync("editview",new Dictionary<string, object> { { "routine", new Routine() } });
         }
 
+        [RelayCommand(CanExecute = nameof(CanEditRoutine))]
+        private async Task EditRoutine()
+        {
+			var navigationParameter = new Dictionary<string, object> { { "Message", SelectedRoutine } };
+			await Shell.Current.GoToAsync("summaryview", navigationParameter);
+		}
+
+        private bool CanEditRoutine()
+        {
+            return SelectedRoutine is not null;
+        }
+
+        [RelayCommand]
+        private async Task GotoSummaryView()
+        {
+			var navigationParameter = new Dictionary<string, object> { { "Message", SelectedRoutine } };
+			await Shell.Current.GoToAsync("summaryview", navigationParameter);
+		}
     }
 }

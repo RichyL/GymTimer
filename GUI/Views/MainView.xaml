@@ -55,6 +55,12 @@
                 HorizontalOptions="Center"
                 Command="{Binding AddNewRoutineCommand}"/>
 
+            <Button
+                Text="Edit Selected Routine"
+                HorizontalOptions="Center"
+                Command="{Binding EditRoutineCommand}"/>
+
+
         </VerticalStackLayout>
     </ScrollView>
 
