@@ -14,4 +14,9 @@ public partial class MainView : ContentPage
 		this.BindingContext = viewModel;
 		InitializeComponent();
 	}
+
+	private void ContentPage_Loaded(object sender, EventArgs e)
+	{
+
+    }
 }

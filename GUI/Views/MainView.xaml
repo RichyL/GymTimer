@@ -28,13 +28,10 @@
 
 
 
-            <ListView ItemsSource="{Binding Routines}">
-                <ListView.Behaviors>
-                    <toolkit:EventToCommandBehavior EventName="ItemSelected" Command="{Binding RoutineSelectedCommand}" EventArgsConverter="{StaticResource SelectedItemEventArgsConverter}" >
-                    </toolkit:EventToCommandBehavior>
-                </ListView.Behaviors>
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="ViewModels:RoutineViewModel">
+            <!--<CollectionView ItemsSource="{Binding Routines}">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
                         <ViewCell>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -46,8 +43,8 @@
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>-->
 
 
             <Button
@@ -59,6 +56,11 @@
                 Text="Edit Selected Routine"
                 HorizontalOptions="Center"
                 Command="{Binding EditRoutineCommand}"/>
+
+            <Button
+                Text="Select Routine"
+                HorizontalOptions="Center"
+                Command="{Binding GotoSummaryViewCommand}"/>
 
 
         </VerticalStackLayout>
