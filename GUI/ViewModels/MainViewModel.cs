@@ -10,45 +10,68 @@ namespace GUI.ViewModels
 	public partial class MainViewModel : ObservableObject
     {
         
-        public ObservableCollection<Routine> Routines { get; set; }
+        public ObservableCollection<RoutineViewModel> Routines { get; set; }
 
         [ObservableProperty]
         private string summary;
 
         public MainViewModel(IRoutineHandlingService rhs)
         {
-          
-
-   //         Routines =new ObservableCollection<Routine>();
-
-   //         Routine r = new Routine() { Name = "Test Routine", Description = "THis is a description", IntroTime = 5 };
-   //         r.Rounds.Add(new Round() { ExerciseTime = 5, RestTime = 3 });
-			//r.Rounds.Add(new Round() { ExerciseTime = 5, RestTime = 3 });
-			//Routines.Add(r);
-
-			//r = new Routine() { Name = "Test Routine 2", Description = "XXXX", IntroTime = 372 };
-			//r.Rounds.Add(new Round() { ExerciseTime = 10, RestTime = 120 });
-			//r.Rounds.Add(new Round() { ExerciseTime = 30, RestTime = 130 
-			//Routines.Add(r);
-			routineHandlingService = rhs;
 
 
-		}
+            //Routines = new ObservableCollection<Routine>();
 
-        private async Task ReadRoutineInfo()
-        {
-            List<Routine> routinesFromDisk = await routineHandlingService.ReadRoutineInfoAsync();
+            //Routine r = new Routine() { Name = "Test Routine", Description = "THis is a description", IntroTime = 5 };
+            //r.Rounds.Add(new Round() { ExerciseTime = 5, RestTime = 3 });
+            //r.Rounds.Add(new Round() { ExerciseTime = 5, RestTime = 3 });
+            //Routines.Add(r);
 
-            Routines=new ObservableCollection<Routine>();
-            foreach (Routine routine in routinesFromDisk)
-            {
-                Routines.Add(routine);
-            }
+            //r = new Routine() { Name = "Test Routine 2", Description = "XXXX", IntroTime = 372 };
+            //r.Rounds.Add(new Round() { ExerciseTime = 10, RestTime = 120 });
+            //r.Rounds.Add(new Round()
+            //{
+            //    ExerciseTime = 30,
+            //    RestTime = 130
+            //});
+            //Routines.Add(r);
+
+            routineHandlingService = rhs;
+
+
+            //ReadRoutineInfo(result);
         }
 
-     
+
+        public async Task ReadRoutineInfoAsync()
+        {
+            var loadedRoutines = await routineHandlingService.ReadRoutineInfoAsync();
+
+            Routines =new ObservableCollection<RoutineViewModel>();
+            foreach (Routine routine in loadedRoutines)
+            {
+                Routines.Add( new RoutineViewModel(routine) );
+            }
+            OnPropertyChanged(nameof(Routines));
+            
+        }
+
+
+        [RelayCommand]
+        private void SelectedItem(object o)
+        {
+            if (SelectedRoutine is not null)
+            {
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine();
+            }
+            
+        }
+
         [ObservableProperty]
-		private Routine selectedRoutine;
+		private RoutineViewModel selectedRoutine;
 
 
 		private readonly IRoutineHandlingService routineHandlingService;
@@ -56,7 +79,7 @@ namespace GUI.ViewModels
 		[RelayCommand]
         private void RoutineSelected(object item)
         {
-            SelectedRoutine = (Routine)item;
+            SelectedRoutine = (RoutineViewModel)item;
 			OnPropertyChanged(nameof(SelectedRoutine));
 
 		}

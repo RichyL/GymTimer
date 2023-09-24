@@ -1,9 +1,12 @@
+using AsyncAwaitBestPractices;
 using GUI.ViewModels;
 
 namespace GUI.Views;
 
 public partial class MainView : ContentPage
 {
+    
+
     public MainView()
     {
             
@@ -15,8 +18,10 @@ public partial class MainView : ContentPage
 		InitializeComponent();
 	}
 
-	private void ContentPage_Loaded(object sender, EventArgs e)
-	{
-
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        MainViewModel mainViewModel = (MainViewModel)BindingContext;
+        mainViewModel.ReadRoutineInfoAsync().SafeFireAndForget();
     }
 }
