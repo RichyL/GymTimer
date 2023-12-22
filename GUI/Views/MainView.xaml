@@ -28,32 +28,46 @@
 
 
 
-            <ListView ItemsSource="{Binding Routines}">
-                <ListView.Behaviors>
-                    <toolkit:EventToCommandBehavior EventName="ItemSelected" Command="{Binding RoutineSelectedCommand}" EventArgsConverter="{StaticResource SelectedItemEventArgsConverter}" >
-                    </toolkit:EventToCommandBehavior>
-                </ListView.Behaviors>
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="ViewModels:RoutineViewModel">
-                        <ViewCell>
-                            <Grid>
+            <CollectionView ItemsSource="{Binding Routines}" 
+                            SelectionMode="Single" 
+                            SelectionChangedCommand="{Binding SelectedItemCommand}"
+                            SelectedItems="{Binding SelectedRoutine}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate  x:DataType="ViewModels:RoutineViewModel">
+                    <VerticalStackLayout>
+                        <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
                                 <Label Grid.Row="0" Text="{Binding Name,FallbackValue='Routine Name'}" />
                                 <Label Grid.Row="1" Text="{Binding Description,FallbackValue='x rounds over y time'}" />
                             </Grid>
-                        </ViewCell>
+                        </VerticalStackLayout>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
 
             <Button
                 Text="Add new routine"
                 HorizontalOptions="Center"
                 Command="{Binding AddNewRoutineCommand}"/>
+
+            <Button
+                Text="Edit Selected Routine"
+                HorizontalOptions="Center"
+                Command="{Binding EditRoutineCommand}"/>
+
+            <Button
+                Text="Select Routine"
+                HorizontalOptions="Center"
+                Command="{Binding GotoSummaryViewCommand}"/>
+
 
         </VerticalStackLayout>
     </ScrollView>

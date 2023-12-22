@@ -25,7 +25,7 @@ namespace TimingService
             List<Routine> routines = new List<Routine>();
             var parentPath = FileSystem.AppDataDirectory;
 
-            IEnumerable<string> fileNames = Directory.EnumerateDirectories(parentPath);
+            IEnumerable<string> fileNames = Directory.EnumerateFiles(parentPath);
             string filePath = string.Empty;
             string routineAsJSON = string.Empty;
 

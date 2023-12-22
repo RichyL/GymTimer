@@ -1,10 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 using TimingService;
 
 namespace GUI.ViewModels;
-public partial class EditViewModel : ObservableObject
+public partial class EditViewModel : ObservableObject, IQueryAttributable
 {
     #region Properties for New Round Entry
     [ObservableProperty]
@@ -25,35 +26,53 @@ public partial class EditViewModel : ObservableObject
 
     public ObservableCollection<RoundEditViewModel> Rounds { get; set; }
 
+    private Routine _routine;
 
 
     public EditViewModel(IRoutineHandlingService timingService)
     {
-        Rounds = new ObservableCollection<RoundEditViewModel>();
-        Rounds.Add(new RoundEditViewModel(10, 20));
+        //Rounds = new ObservableCollection<RoundEditViewModel>();
+        //Rounds.Add(new RoundEditViewModel(10, 20));
         _fileService = timingService;
     }
 
-    [RelayCommand]
+	public void ApplyQueryAttributes(IDictionary<string, object> query)
+	{
+		_routine = query["routine"] as Routine;
+		Name = _routine.Name;
+		IntroTime = _routine.IntroTime;
+
+		Rounds = new ObservableCollection<RoundEditViewModel>();
+		for (int i = 0; i < _routine.Rounds.Count; ++i)
+		{
+			Rounds.Add(new RoundEditViewModel(_routine.Rounds[i].ExerciseTime, _routine.Rounds[i].RestTime));
+		}
+
+		OnPropertyChanged(nameof(Name));
+		OnPropertyChanged(nameof(IntroTime));
+		OnPropertyChanged(nameof(Rounds));
+	}
+
+	[RelayCommand]
     public async Task SaveRoutine()
     {
 
-        Routine routine = new Routine();
-        routine.Name = Name;
-        routine.Description = Description;
-        routine.IntroTime = IntroTime;
+        //Routine routine = new Routine();
+        //routine.Name = Name;
+        //routine.Description = Description;
+        //routine.IntroTime = IntroTime;
         
-        foreach(RoundEditViewModel model in Rounds)
-        {
-            routine.Rounds.Add(new Round(model.ExerciseTime, model.RestTime));
-        }
+        //foreach(RoundEditViewModel model in Rounds)
+        //{
+        //    routine.Rounds.Add(new Round(model.ExerciseTime, model.RestTime));
+        //}
 
 
-        await _fileService.WriteRoutineInfoAsync(routine);
+        await _fileService.WriteRoutineInfoAsync(_routine);
     }
 
     [RelayCommand]
-    public async Task AddRound()
+    public void AddRound()
     {
         ShowAddRound=true;
     }

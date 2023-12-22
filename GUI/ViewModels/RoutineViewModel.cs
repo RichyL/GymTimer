@@ -16,8 +16,11 @@ namespace GUI.ViewModels
 		[ObservableProperty]
 		private string description;
 
-		internal RoutineViewModel(Routine r)
+        public Routine Routine { get; set; }
+
+        internal RoutineViewModel(Routine r)
         {
+            Routine = r;
             Name = r.Name;
             Summary = r.Summary;
             //Description = r.Description;
