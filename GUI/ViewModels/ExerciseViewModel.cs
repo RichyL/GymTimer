@@ -111,10 +111,12 @@ namespace GUI.ViewModels
 		[RelayCommand]
 		private void Start()
 		{
-			//_timingService.StartRoutine();
-			TickEventArgs tick= _timingService.HandleTick();
-			_timingService_TickEvent(this, tick);
+			_timingService.StartRoutine();
+
+			//TickEventArgs tick= _timingService.HandleTick();
+			//_timingService_TickEvent(this, tick);
 		}
+
 
 		[RelayCommand]
 		private void Stop()

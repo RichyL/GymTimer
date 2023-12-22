@@ -33,15 +33,10 @@ namespace TimingService
 		{
 			TickEventArgs eventObject = new TickEventArgs();
 
-			eventObject.IsIntro = _isIntro;
-			eventObject.IsExercise = _isExercise;
-			eventObject.IsRest = _isRest;
-			eventObject.TimeLeftInState = _countDownTime;
-			//need to display 1-indexed round number to the user
-			eventObject.CurrentRound = _roundCount + 1;
+			bool inTransition = false;
 
 			//Transition from Intro to Exercise
-			if (_isIntro && _countDownTime ==1)
+			if (_isIntro && _countDownTime ==0)
 			{
 				_isIntro = false;
 				_isExercise = true;
@@ -49,11 +44,19 @@ namespace TimingService
 
 				//Put exercise time into _countDownTime
 				_countDownTime = _routine.Rounds[_roundCount].ExerciseTime;
-				return eventObject;
+
+                eventObject.IsIntro = _isIntro;
+                eventObject.IsExercise = _isExercise;
+                eventObject.IsRest = _isRest;
+                eventObject.TimeLeftInState = _countDownTime;
+				eventObject.CurrentRound = _roundCount + 1;
+				inTransition = true;
+
+                //return eventObject;
 			}
 
 			//transition from Exercise To Rest
-			if(_isExercise && _countDownTime ==1 )
+			if(_isExercise && _countDownTime ==0 )
 			{
 				_isIntro=false;
 				_isExercise = false;
@@ -61,11 +64,19 @@ namespace TimingService
 
 				//Put rest time into _countDownTime
 				_countDownTime = _routine.Rounds[_roundCount].RestTime;
-				return eventObject;
+
+                eventObject.IsIntro = _isIntro;
+                eventObject.IsExercise = _isExercise;
+                eventObject.IsRest = _isRest;
+                eventObject.TimeLeftInState = _countDownTime;
+                eventObject.CurrentRound = _roundCount+1;
+                inTransition = true;
+
+                //return eventObject;
 			}
 
 			//transition from Rest to Exercise
-			if(_isRest && _countDownTime ==1 )
+			if(_isRest && _countDownTime ==0 )
 			{
 				_isIntro=false;
 				_isExercise = true;
@@ -75,19 +86,36 @@ namespace TimingService
 				if(_roundCount > _routine.Rounds.Count - 1)
 				{
 					_isIntro = false; _isExercise = false; _isRest = false; _isFinished = true;
-					eventObject.IsFinished=_isFinished;
-				}
+                    eventObject.IsIntro = _isIntro;
+                    eventObject.IsExercise = _isExercise;
+                    eventObject.IsRest = _isRest;
+                    eventObject.TimeLeftInState = _countDownTime;
+                    eventObject.IsFinished=_isFinished;
+                    eventObject.CurrentRound = _routine.Rounds.Count;
+                }
 
-				
+				inTransition = true;
 
 				//Put next round exercise time into _countDownTime
 				_countDownTime = _routine.Rounds[_countDownTime].ExerciseTime;
-				return eventObject;
+				//return eventObject;
 			}
 
-			_countDownTime--;
+           
 
-			return eventObject;
+            if (!inTransition)
+			{
+                
+                eventObject.IsIntro = _isIntro;
+                eventObject.IsExercise = _isExercise;
+                eventObject.IsRest = _isRest;
+                eventObject.TimeLeftInState = _countDownTime;
+                //need to display 1-indexed round number to the user
+                eventObject.CurrentRound = (_isIntro)? 0 : _roundCount + 1;
+            }
+
+            _countDownTime--;
+            return eventObject;
 		}
 
 

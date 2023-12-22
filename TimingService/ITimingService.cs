@@ -32,16 +32,11 @@ namespace TimingService
 
             //sb.Append($"INTRO - Time left:{IntroTimeLeft}  Round = {CurrentRound}. ExerciseTime = {ExerciseTimeLeft} RestTime = {RestTImeLeft}");
 
-            sb.AppendLine($"ROUND = {CurrentRound}");
-            if (IsIntro) { sb.Append($"INTRO - Time left {TimeLeftInState}");  }
-			if (IsExercise) { sb.Append($"Exercising - Time left {TimeLeftInState}");  }
-			if (IsRest) { sb.Append($"Resting - Time left {TimeLeftInState}"); }
 
-			if (IsFinished)
-            {
-                sb.Append(Environment.NewLine);
-                sb.Append("FINISHED!!!!");
-            }
+            if (IsIntro) { sb.Append($"ROUND = {CurrentRound} INTRO - Time left {TimeLeftInState}");  }
+			if (IsExercise) { sb.Append($"ROUND = {CurrentRound} Exercising - Time left {TimeLeftInState}");  }
+			if (IsRest) { sb.Append($"ROUND = {CurrentRound} Resting - Time left {TimeLeftInState}"); }
+            if (IsFinished) { sb.Append($"ROUND = {CurrentRound} FINISHED"); }
 
             return sb.ToString();
         }
