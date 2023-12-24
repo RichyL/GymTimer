@@ -10,8 +10,8 @@ namespace TimingServiceTest
         {
             Routine routine = new Routine();
             routine.IntroTime = 3;
-            routine.Rounds.Add(new Round(3, 3));
-			routine.Rounds.Add(new Round(2, 2));
+            routine.Rounds.Add(new Round(3, 0));
+			routine.Rounds.Add(new Round(2, 0));
 
 			//service.TickEvent += Service_TickEvent;
 			service.SetRoutine(routine);

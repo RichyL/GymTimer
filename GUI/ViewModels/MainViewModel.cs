@@ -1,13 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
-using System.Xml.Linq;
 using TimingService;
 
 namespace GUI.ViewModels
 {
-	public partial class MainViewModel : ObservableObject
+    public partial class MainViewModel : ObservableObject
     {
         
         public ObservableCollection<RoutineViewModel> Routines { get; set; }
@@ -57,37 +55,30 @@ namespace GUI.ViewModels
 
 
         [RelayCommand]
-        private void SelectedItem(object o)
+        private void SelectedItem()
         {
-            if (SelectedRoutine is not null)
-            {
-                Console.WriteLine();
-            }
-            else
-            {
-                Console.WriteLine();
-            }
-            
+            //SelectedRoutine = (RoutineViewModel)o;
+            OnPropertyChanged(nameof(SelectedRoutine));
         }
 
         [ObservableProperty]
-		private RoutineViewModel selectedRoutine;
+        [NotifyCanExecuteChangedFor(nameof(EditRoutineCommand))]
+        [NotifyCanExecuteChangedFor(nameof(GotoSummaryViewCommand))]
+        private RoutineViewModel selectedRoutine;
 
 
 		private readonly IRoutineHandlingService routineHandlingService;
 
-		[RelayCommand]
-        private void RoutineSelected(object item)
-        {
-            SelectedRoutine = (RoutineViewModel)item;
-			OnPropertyChanged(nameof(SelectedRoutine));
-
-		}
 
         [RelayCommand]
         private async Task AddNewRoutine()
         {
             await Shell.Current.GoToAsync("editview",new Dictionary<string, object> { { "routine", new Routine() } });
+        }
+
+        private bool CanEditRoutine()
+        {
+            return SelectedRoutine is not null;
         }
 
         [RelayCommand(CanExecute = nameof(CanEditRoutine))]
@@ -97,11 +88,7 @@ namespace GUI.ViewModels
 			await Shell.Current.GoToAsync("editview", navigationParameter);
 		}
 
-        private bool CanEditRoutine()
-        {
-            return SelectedRoutine is not null;
-        }
-
+        
         [RelayCommand(CanExecute = nameof(CanEditRoutine))]
         private async Task GotoSummaryView()
         {

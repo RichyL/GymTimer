@@ -26,8 +26,6 @@ public partial class EditViewModel : ObservableObject, IQueryAttributable
 
     public ObservableCollection<RoundEditViewModel> Rounds { get; set; }
 
-    private Routine _routine;
-
 
     public EditViewModel(IRoutineHandlingService timingService)
     {
@@ -38,14 +36,14 @@ public partial class EditViewModel : ObservableObject, IQueryAttributable
 
 	public void ApplyQueryAttributes(IDictionary<string, object> query)
 	{
-		_routine = query["routine"] as Routine;
-		Name = _routine.Name;
-		IntroTime = _routine.IntroTime;
+		RoutineViewModel _routineVM = query["routine"] as RoutineViewModel;
+		Name = _routineVM.Routine.Name;
+		IntroTime = _routineVM.Routine.IntroTime;
 
 		Rounds = new ObservableCollection<RoundEditViewModel>();
-		for (int i = 0; i < _routine.Rounds.Count; ++i)
+		for (int i = 0; i < _routineVM.Routine.Rounds.Count; ++i)
 		{
-			Rounds.Add(new RoundEditViewModel(_routine.Rounds[i].ExerciseTime, _routine.Rounds[i].RestTime));
+			Rounds.Add(new RoundEditViewModel(_routineVM.Routine.Rounds[i].ExerciseTime, _routineVM.Routine.Rounds[i].RestTime));
 		}
 
 		OnPropertyChanged(nameof(Name));
@@ -57,18 +55,18 @@ public partial class EditViewModel : ObservableObject, IQueryAttributable
     public async Task SaveRoutine()
     {
 
-        //Routine routine = new Routine();
-        //routine.Name = Name;
-        //routine.Description = Description;
-        //routine.IntroTime = IntroTime;
-        
-        //foreach(RoundEditViewModel model in Rounds)
-        //{
-        //    routine.Rounds.Add(new Round(model.ExerciseTime, model.RestTime));
-        //}
+        Routine routine = new Routine();
+        routine.Name = Name;
+        routine.Description = Description;
+        routine.IntroTime = IntroTime;
+
+        foreach (RoundEditViewModel model in Rounds)
+        {
+            routine.Rounds.Add(new Round(model.ExerciseTime, model.RestTime));
+        }
 
 
-        await _fileService.WriteRoutineInfoAsync(_routine);
+        await _fileService.WriteRoutineInfoAsync(routine);
     }
 
     [RelayCommand]
