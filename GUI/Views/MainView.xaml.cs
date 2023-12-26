@@ -22,6 +22,7 @@ public partial class MainView : ContentPage
     {
         base.OnAppearing();
         MainViewModel mainViewModel = (MainViewModel)BindingContext;
+        mainViewModel.ResetSelectedRoutine();
         mainViewModel.ReadRoutineInfoAsync().SafeFireAndForget();
     }
 }

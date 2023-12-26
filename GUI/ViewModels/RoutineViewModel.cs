@@ -16,24 +16,26 @@ namespace GUI.ViewModels
 		[ObservableProperty]
 		private string description;
 
-        public Routine Routine { get; set; }
+        private string RoutineFileName { get; set; }
 
-        internal RoutineViewModel(Routine r)
-        {
+        public Routine Routine{ get; set; }
+
+        public RoutineViewModel(Routine r)
+        { 
             Routine = r;
-            Name = r.Name;
-            Summary = r.Summary;
-            //Description = r.Description;
+            Name = Routine.Name;
+            Summary = Routine.Summary;
+            Description = Routine.Description;
+            RoutineFileName = Routine.RoutineFileName;
 
             ListOfRounds = new();
-            for(int i = 0; i< r.Rounds.Count; i++)
+            for(int i = 0; i< Routine.Rounds.Count; i++)
             {
-                Round r1 = r.Rounds[i];
-				ListOfRounds.Add( new RoundViewModel(r1));    
+                Round r1 = Routine.Rounds[i];
+				ListOfRounds.Add( new RoundViewModel(r1) );    
             }
 
         }
-
 
         public ObservableCollection<RoundViewModel> ListOfRounds { get; set; }
     }

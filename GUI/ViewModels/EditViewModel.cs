@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
+using System.Runtime.Serialization;
 using TimingService;
 
 namespace GUI.ViewModels;
@@ -21,8 +22,13 @@ public partial class EditViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty]
     private string? description;
 
+    private string routineFileName;
+
     [ObservableProperty]
     private int introTime;
+
+    [ObservableProperty]
+    private string message="No message currently";
 
     public ObservableCollection<RoundEditViewModel> Rounds { get; set; }
 
@@ -34,16 +40,21 @@ public partial class EditViewModel : ObservableObject, IQueryAttributable
         _fileService = timingService;
     }
 
-	public void ApplyQueryAttributes(IDictionary<string, object> query)
+    private Routine OriginalRoutine { get; set; }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
 	{
-		RoutineViewModel _routineVM = query["routine"] as RoutineViewModel;
-		Name = _routineVM.Routine.Name;
-		IntroTime = _routineVM.Routine.IntroTime;
+        OriginalRoutine = query["routine"] as Routine;
+        Name = OriginalRoutine.Name;
+        Description = OriginalRoutine.Description;
+        routineFileName  = OriginalRoutine.RoutineFileName;
+		IntroTime = OriginalRoutine.IntroTime;
+
 
 		Rounds = new ObservableCollection<RoundEditViewModel>();
-		for (int i = 0; i < _routineVM.Routine.Rounds.Count; ++i)
+		for (int i = 0; i < OriginalRoutine.Rounds.Count; ++i)
 		{
-			Rounds.Add(new RoundEditViewModel(_routineVM.Routine.Rounds[i].ExerciseTime, _routineVM.Routine.Rounds[i].RestTime));
+			Rounds.Add(new RoundEditViewModel(OriginalRoutine.Rounds[i].ExerciseTime, OriginalRoutine.Rounds[i].RestTime));
 		}
 
 		OnPropertyChanged(nameof(Name));
@@ -59,6 +70,7 @@ public partial class EditViewModel : ObservableObject, IQueryAttributable
         routine.Name = Name;
         routine.Description = Description;
         routine.IntroTime = IntroTime;
+        routine.RoutineFileName = routineFileName;
 
         foreach (RoundEditViewModel model in Rounds)
         {
@@ -67,12 +79,22 @@ public partial class EditViewModel : ObservableObject, IQueryAttributable
 
 
         await _fileService.WriteRoutineInfoAsync(routine);
+        Message = "Save successful";
+        OnPropertyChanged(nameof(Message));
     }
 
     [RelayCommand]
     public void AddRound()
     {
         ShowAddRound=true;
+    }
+
+    [RelayCommand]
+    public void RemoveRound(object o)
+    {
+        RoundEditViewModel roundEditViewModel  = o as RoundEditViewModel;
+        Rounds.Remove(roundEditViewModel);
+        OnPropertyChanged(nameof(Rounds));  
     }
 
     [ObservableProperty]

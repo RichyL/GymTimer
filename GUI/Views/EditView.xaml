@@ -35,9 +35,16 @@
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="ViewModels:RoundEditViewModel">
                         <ViewCell>
-                            <VerticalStackLayout>
-                                <Controls:RoundView ExerciseTime="{Binding ExerciseTime}" RestTime="{Binding RestTime}" />
-                            </VerticalStackLayout>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <Controls:RoundViewEditor ExerciseTime="{Binding ExerciseTime}" RestTime="{Binding RestTime}" Grid.Column="0"/>
+                                <Button Text="Remove" Command="{Binding Path=RemoveRoundCommand, Source={RelativeSource AncestorType={x:Type ViewModels:EditViewModel}}}"  
+                                        CommandParameter="{Binding .}"
+                                        Grid.Column="1"/>
+                            </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -45,27 +52,39 @@
 
             <Button Text="Add Round" Command="{Binding AddRoundCommand}" />
 
-            <VerticalStackLayout IsVisible="{Binding ShowAddRound}">
-                <HorizontalStackLayout>
+            <Grid IsVisible="{Binding ShowAddRound}" >
+                <Grid.RowDefinitions />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <HorizontalStackLayout Padding="0,0,10,0" Grid.Column="0">
                     <Label Text="Exercise:" BackgroundColor="Red"/>
-                    <Editor x:Name="ExerciseTimeEntry" BackgroundColor="Tomato" Text="{Binding ExerciseTime}"/>
+                    <Editor x:Name="ExerciseTimeEntry" BackgroundColor="Tomato" Text="{Binding ExerciseTime}" />
                 </HorizontalStackLayout>
 
-                <HorizontalStackLayout>
+                <HorizontalStackLayout Padding="0,0,10,0" Grid.Column="1">
                     <Label Text="Rest:"  BackgroundColor="Green"/>
                     <Editor x:Name="RestTimeEntry" BackgroundColor="GreenYellow" Text="{Binding RestTime}"/>
                 </HorizontalStackLayout>
 
+                <HorizontalStackLayout Padding="0,0,10,0" Grid.Column="2">
+                    <Button Text="Save" Command="{Binding SaveRoundCommand}" />
+                    <Label Text="{Binding AddRoundErrorMessage}" IsVisible="{Binding ShowAddRoundErrorMessage}"/>
+                </HorizontalStackLayout>
 
-                <Button Text="Save" Command="{Binding SaveRoundCommand}" />
-
-                <Label Text="{Binding AddRoundErrorMessage}" IsVisible="{Binding ShowAddRoundErrorMessage}" />
-
-            </VerticalStackLayout>
+            </Grid>
 
             <HorizontalStackLayout>
                 <Button Text="Save" Command="{Binding SaveRoutineCommand}"/>
             </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <Label Text="{Binding Message,FallbackValue='No value loaded for message'}" TextColor="Black" FontSize="Caption" />
+            </HorizontalStackLayout>
+
 
         </VerticalStackLayout>
     </ScrollView>

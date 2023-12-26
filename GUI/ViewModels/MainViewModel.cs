@@ -84,7 +84,7 @@ namespace GUI.ViewModels
         [RelayCommand(CanExecute = nameof(CanEditRoutine))]
         private async Task EditRoutine()
         {
-			var navigationParameter = new Dictionary<string, object> { { "routine", SelectedRoutine } };
+			var navigationParameter = new Dictionary<string, object> { { "routine", SelectedRoutine.Routine } };
 			await Shell.Current.GoToAsync("editview", navigationParameter);
 		}
 
@@ -95,5 +95,12 @@ namespace GUI.ViewModels
 			var navigationParameter = new Dictionary<string, object> { { "Message", SelectedRoutine } };
 			await Shell.Current.GoToAsync("summaryview", navigationParameter);
 		}
+
+        #region PageEvents
+        public void ResetSelectedRoutine()
+        {
+            SelectedRoutine = null;
+        }
+        #endregion
     }
 }
