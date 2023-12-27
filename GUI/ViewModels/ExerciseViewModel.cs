@@ -54,7 +54,7 @@ namespace GUI.ViewModels
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
 		{
-			_routine = query["Message"] as Routine;
+			_routine = query[nameof(Routine)] as Routine;
 			Name = _routine.Name;
 			IntroTime = _routine.IntroTime;
 

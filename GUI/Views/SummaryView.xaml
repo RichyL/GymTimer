@@ -13,7 +13,14 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-        <HorizontalStackLayout>
+        <Label 
+            Text="{Binding Description,FallbackValue='No Name set'}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+
+
+            <HorizontalStackLayout>
             <Label Text="Intro Time:" />
             <Label Text="{Binding IntroTime}" />
         </HorizontalStackLayout>
@@ -32,7 +39,7 @@
         </ListView>
 
         <HorizontalStackLayout>
-            <Button Text="Edit" IsEnabled="False"/>
+            <Button Text="Edit" Command="{Binding EditRoutineCommand}"/>
             <Button Text="Go!" Command="{Binding RunRoutineCommand}"/>
         </HorizontalStackLayout>
 

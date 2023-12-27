@@ -73,7 +73,7 @@ namespace GUI.ViewModels
         [RelayCommand]
         private async Task AddNewRoutine()
         {
-            await Shell.Current.GoToAsync("editview",new Dictionary<string, object> { { "routine", new Routine() } });
+            await Shell.Current.GoToAsync(AppShell.EDIT_VIEW,new Dictionary<string, object> { { nameof(Routine), new Routine() } });
         }
 
         private bool CanEditRoutine()
@@ -84,16 +84,16 @@ namespace GUI.ViewModels
         [RelayCommand(CanExecute = nameof(CanEditRoutine))]
         private async Task EditRoutine()
         {
-			var navigationParameter = new Dictionary<string, object> { { "routine", SelectedRoutine.Routine } };
-			await Shell.Current.GoToAsync("editview", navigationParameter);
+			var navigationParameter = new Dictionary<string, object> { { nameof(Routine), SelectedRoutine.Routine } };
+			await Shell.Current.GoToAsync(AppShell.EDIT_VIEW, navigationParameter);
 		}
 
         
         [RelayCommand(CanExecute = nameof(CanEditRoutine))]
         private async Task GotoSummaryView()
         {
-			var navigationParameter = new Dictionary<string, object> { { "Message", SelectedRoutine } };
-			await Shell.Current.GoToAsync("summaryview", navigationParameter);
+			var navigationParameter = new Dictionary<string, object> { { nameof(Routine), SelectedRoutine.Routine } };
+			await Shell.Current.GoToAsync(AppShell.SUMMARY_VIEW, navigationParameter);
 		}
 
         #region PageEvents

@@ -62,12 +62,12 @@
 
                 <HorizontalStackLayout Padding="0,0,10,0" Grid.Column="0">
                     <Label Text="Exercise:" BackgroundColor="Red"/>
-                    <Editor x:Name="ExerciseTimeEntry" BackgroundColor="Tomato" Text="{Binding ExerciseTime}" />
+                    <Editor x:Name="ExerciseTimeEntry" BackgroundColor="Tomato" Text="{Binding EditExerciseTime}" />
                 </HorizontalStackLayout>
 
                 <HorizontalStackLayout Padding="0,0,10,0" Grid.Column="1">
                     <Label Text="Rest:"  BackgroundColor="Green"/>
-                    <Editor x:Name="RestTimeEntry" BackgroundColor="GreenYellow" Text="{Binding RestTime}"/>
+                    <Editor x:Name="RestTimeEntry" BackgroundColor="GreenYellow" Text="{Binding EditRestTime}"/>
                 </HorizontalStackLayout>
 
                 <HorizontalStackLayout Padding="0,0,10,0" Grid.Column="2">

@@ -30,6 +30,12 @@ public partial class EditViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty]
     private string message="No message currently";
 
+    [ObservableProperty]
+    private int editExerciseTime = 0;
+
+    [ObservableProperty]
+    private int editRestTime = 0;
+
     public ObservableCollection<RoundEditViewModel> Rounds { get; set; }
 
 
@@ -44,7 +50,7 @@ public partial class EditViewModel : ObservableObject, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
 	{
-        OriginalRoutine = query["routine"] as Routine;
+        OriginalRoutine = query[nameof(Routine)] as Routine;
         Name = OriginalRoutine.Name;
         Description = OriginalRoutine.Description;
         routineFileName  = OriginalRoutine.RoutineFileName;
@@ -110,7 +116,7 @@ public partial class EditViewModel : ObservableObject, IQueryAttributable
     [RelayCommand]
     public void SaveRound()
     {
-        if(ExerciseTime ==0 && RestTime ==0)
+        if(EditExerciseTime ==0 && EditRestTime ==0)
         {
             AddRoundErrorMessage = "At least one of exercise time or rest time must have a value";
             ShowAddRoundErrorMessage = true;
@@ -120,9 +126,9 @@ public partial class EditViewModel : ObservableObject, IQueryAttributable
             return;
         }
 
-        Rounds.Add(new RoundEditViewModel(ExerciseTime, RestTime));
+        Rounds.Add(new RoundEditViewModel(EditExerciseTime, EditRestTime));
         ShowAddRound = false;
-        ExerciseTime = RestTime = 0;
+        EditExerciseTime = EditRestTime = 0;
         
     }
 
