@@ -12,6 +12,12 @@ namespace TimingService
 
         void StopRoutine(CancellationToken token);
 
+        /// <summary>
+        /// Restores the service so that a further call to StartRoutine will start the routine from either the intro or first round
+        /// If called while the routine is running the routine is stopped first.
+        /// </summary>
+        void ResetRoutine();
+
         TickEventArgs HandleTick();
     }
 

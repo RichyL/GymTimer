@@ -173,5 +173,12 @@ namespace TimingService
 			//_exerciseClicks = (_introTimeLeft > 0) ? routine.Rounds[0].ExerciseTime - 1:;
 			//_restClicks = routine.Rounds[0].RestTime;
 		}
-	}
+
+        public void ResetRoutine()
+        {
+			StopRoutine(new CancellationToken() );
+			SetRoutine(_routine);
+
+        }
+    }
 }

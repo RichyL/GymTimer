@@ -46,7 +46,8 @@
 
         <HorizontalStackLayout>
             <Button Text="Start" Command="{Binding StartCommand}" />
-            <Button Text="Stop" Command="{Binding StopCommand}" />
+            <Button Text="Pause" Command="{Binding StopCommand}" />
+            <Button Text="Reset" Command="{Binding ResetCommand}" />
         </HorizontalStackLayout>
         
     </VerticalStackLayout>

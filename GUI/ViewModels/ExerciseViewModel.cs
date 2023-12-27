@@ -57,6 +57,8 @@ namespace GUI.ViewModels
 			_routine = query[nameof(Routine)] as Routine;
 			Name = _routine.Name;
 			IntroTime = _routine.IntroTime;
+			IsIntro = IntroTime > 0;
+
 
 			Rounds = new ObservableCollection<Round>();
 			for (int i = 0; i < _routine.Rounds.Count; ++i)
@@ -111,10 +113,10 @@ namespace GUI.ViewModels
 		[RelayCommand]
 		private void Start()
 		{
-			_timingService.StartRoutine();
+			//_timingService.StartRoutine();
 
-			//TickEventArgs tick= _timingService.HandleTick();
-			//_timingService_TickEvent(this, tick);
+			TickEventArgs tick = _timingService.HandleTick();
+			_timingService_TickEvent(this, tick);
 		}
 
 
@@ -122,6 +124,12 @@ namespace GUI.ViewModels
 		private void Stop()
 		{
 			_timingService.StopRoutine(new CancellationToken());
+		}
+
+		[RelayCommand]
+		private void Reset()
+		{
+			_timingService.ResetRoutine();
 		}
 	}
 }
