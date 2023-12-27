@@ -6,7 +6,7 @@
              xmlns:Controls="clr-namespace:GUI.Controls"
              x:DataType="ViewModels:ExerciseViewModel"
              x:Class="GUI.Views.ExerciseView"
-             Title="ExerciseView">
+             Title="Exercise">
 
     <ContentPage.Resources>
         <Converters:TimeConverter x:Key="ShowTimeConverter" >

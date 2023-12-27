@@ -4,7 +4,7 @@
              x:Class="GUI.Views.SummaryView"
              xmlns:Controls="clr-namespace:GUI.Controls"
              xmlns:ViewModels="clr-namespace:GUI.ViewModels"
-             Title="SummaryView"
+             Title="Summary"
              x:DataType="ViewModels:SummaryViewModel">
     <ScrollView>
         <VerticalStackLayout>

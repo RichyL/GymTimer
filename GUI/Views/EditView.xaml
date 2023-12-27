@@ -5,7 +5,7 @@
              xmlns:Controls="clr-namespace:GUI.Controls"
              x:Class="GUI.Views.EditView"
              x:DataType="ViewModels:EditViewModel"
-             Title="EditView">
+             Title="Edit Routine">
     <ScrollView>
         <VerticalStackLayout>
 
