@@ -9,9 +9,9 @@ namespace TimingServiceTest
         public TimingTestCode()
         {
             Routine routine = new Routine();
-            routine.IntroTime = 10;
-            routine.Rounds.Add(new Round(3, 0));
-			routine.Rounds.Add(new Round(2, 0));
+            routine.IntroTime = 3;
+            routine.Rounds.Add(new Round(3, 3));
+			routine.Rounds.Add(new Round(2, 2));
 
 			//service.TickEvent += Service_TickEvent;
 			service.SetRoutine(routine);
@@ -31,10 +31,6 @@ namespace TimingServiceTest
 
 			args = service.HandleTick();
 			Console.WriteLine(args);
-
-            Console.WriteLine("Service to be reset");
-            service.ResetRoutine();
-            Console.WriteLine("Service reset");
 
             args = service.HandleTick();
 			Console.WriteLine(args);
@@ -62,7 +58,6 @@ namespace TimingServiceTest
 
 			args = service.HandleTick();
 			Console.WriteLine(args);
-
 
 			args = service.HandleTick();
 			Console.WriteLine(args);

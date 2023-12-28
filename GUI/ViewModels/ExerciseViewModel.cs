@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Graphics.Canvas.Effects;
 using System.Collections.ObjectModel;
 using TimingService;
 
@@ -31,20 +32,41 @@ namespace GUI.ViewModels
 		[ObservableProperty]
 		private bool isFinished;
 
-		[ObservableProperty]
-		private int currentRound;
 
 		[ObservableProperty]
+		private string summary = NOT_STARTED_SUMMARY;
+
+		[ObservableProperty]
+		private int currentTime;
+
+		[ObservableProperty]
+		private string fillColour;
+
+		private int currentRound;
 		private int totalRounds;
 
-		[ObservableProperty]
-		private string summary;
+		private static string NOT_STARTED = "Ready to start";
+		private static string INTRO = "Starting";
+		private static string EXERCISING = "Exercise";
+		private static string RESTING = "Rest";
+		private static string FINISHED = "Finished routine";
+
+		private static string NOT_STARTED_SUMMARY = "Press start to begin routine";
+        private static string INTRO_SUMMARY= "Routine starting";
+
+
+        [ObservableProperty]
+		private string state;
 
 		public ObservableCollection<Round> Rounds { get; set; }
 
 		private Routine _routine;
 
 		private ITimingService _timingService;
+
+		private int originalIntroTime;
+		private int originalExerciseTime;
+		private int originalRestTime;
 
         public ExerciseViewModel(ITimingService timingService)
         {
@@ -57,7 +79,8 @@ namespace GUI.ViewModels
 			_routine = query[nameof(Routine)] as Routine;
 			Name = _routine.Name;
 			IntroTime = _routine.IntroTime;
-			IsIntro = IntroTime > 0;
+			originalIntroTime = IntroTime;
+            IsIntro = IntroTime > 0;
 
 
 			Rounds = new ObservableCollection<Round>();
@@ -65,18 +88,16 @@ namespace GUI.ViewModels
 			{
 				Rounds.Add(_routine.Rounds[i]);
 			}
+			totalRounds = Rounds.Count;
 
-			//display 1-indexed 
-			CurrentRound = 1;
-			TotalRounds = Rounds.Count;
-			Summary = $"Round {CurrentRound} of {TotalRounds}";
 
-			OnPropertyChanged(nameof(Summary));
 
+            SetState();
+
+            OnPropertyChanged(nameof(Summary));
 			OnPropertyChanged(nameof(Name));
 			OnPropertyChanged(nameof(IntroTime));
 			OnPropertyChanged(nameof(Rounds));
-			OnPropertyChanged(nameof(TotalRounds));
 
 			_timingService.SetRoutine(_routine);
 			_timingService.TickEvent += _timingService_TickEvent;
@@ -92,11 +113,28 @@ namespace GUI.ViewModels
 			if (IsExercising) ExerciseTime = e.TimeLeftInState;
 			if (IsResting) RestTime = e.TimeLeftInState;
 			
-			CurrentRound = e.CurrentRound;
+			if(currentRound != e.CurrentRound)
+			{
+				if(IsExercising) originalExerciseTime=e.TimeLeftInState;
+				if(IsResting) originalRestTime = e.TimeLeftInState;
+			}
 
-			Summary = $"Round {CurrentRound} of {TotalRounds}";
+            currentRound = e.CurrentRound;
 
-			OnPropertyChanged(nameof(Summary));
+            //display 1-indexed 
+            if (IsIntro)
+            {
+				Summary = INTRO_SUMMARY;
+            }
+
+            if (!IsIntro)
+            {
+                Summary = $"Round {currentRound} of {totalRounds}";
+            }
+
+            SetState();
+
+            OnPropertyChanged(nameof(Summary));
 
 			OnPropertyChanged(nameof(IsIntro));
 			OnPropertyChanged(nameof(IsExercising));
@@ -107,6 +145,34 @@ namespace GUI.ViewModels
 			OnPropertyChanged(nameof(ExerciseTime));
 			OnPropertyChanged(nameof(RestTime));
 			OnPropertyChanged(nameof(Rounds));
+
+		}
+
+		private void SetState()
+		{
+			if (IsIntro) { 
+				State = INTRO;
+				CurrentTime = IntroTime;
+            };
+
+			if(IsExercising) { 
+				State = EXERCISING;
+				CurrentTime = ExerciseTime;
+            }
+			if(IsResting) { 
+				State = RESTING;
+				CurrentTime = RestTime;
+            }
+
+			if(IsFinished)
+			{
+				State = FINISHED;
+				CurrentTime = 0;
+            }
+
+			OnPropertyChanged(nameof(FillColour));
+			OnPropertyChanged(nameof(State));
+			OnPropertyChanged(nameof(CurrentTime));
 
 		}
 
@@ -130,6 +196,13 @@ namespace GUI.ViewModels
 		private void Reset()
 		{
 			_timingService.ResetRoutine();
-		}
+			Summary = NOT_STARTED_SUMMARY;
+			State = NOT_STARTED;
+
+            OnPropertyChanged(nameof(Summary));
+			OnPropertyChanged(nameof(State));
+
+
+        }
 	}
 }

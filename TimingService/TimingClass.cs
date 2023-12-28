@@ -81,37 +81,48 @@ namespace TimingService
 				_isIntro=false;
 				_isExercise = true;
 				_isRest = false;
+                _roundCount++;
 
-				_roundCount++;
 				if(_roundCount > _routine.Rounds.Count - 1)
 				{
+					//handle possible routine finish here
 					_isIntro = false; _isExercise = false; _isRest = false; _isFinished = true;
                     eventObject.IsIntro = _isIntro;
                     eventObject.IsExercise = _isExercise;
                     eventObject.IsRest = _isRest;
-                    eventObject.TimeLeftInState = _countDownTime;
+                    eventObject.TimeLeftInState = 0;
                     eventObject.IsFinished=_isFinished;
-                    eventObject.CurrentRound = _routine.Rounds.Count;
+					eventObject.CurrentRound = _routine.Rounds.Count;
+                    inTransition = true;
+                }
+				else
+				{
+                    //Put next round exercise time into _countDownTime
+                    _countDownTime = _routine.Rounds[_roundCount].ExerciseTime;
+
+                    eventObject.IsIntro = _isIntro;
+                    eventObject.IsExercise = _isExercise;
+                    eventObject.IsRest = _isRest;
+                    eventObject.TimeLeftInState = _countDownTime;
+                    eventObject.CurrentRound = _roundCount + 1;
+                    inTransition = true;
                 }
 
-				inTransition = true;
-
-				//Put next round exercise time into _countDownTime
-				_countDownTime = _routine.Rounds[_countDownTime].ExerciseTime;
+			
 				//return eventObject;
 			}
 
-           
 
+            // if no change in state then event object is generated here
             if (!inTransition)
-			{
-                
+            {
+
                 eventObject.IsIntro = _isIntro;
                 eventObject.IsExercise = _isExercise;
                 eventObject.IsRest = _isRest;
                 eventObject.TimeLeftInState = _countDownTime;
                 //need to display 1-indexed round number to the user
-                eventObject.CurrentRound = (_isIntro)? 0 : _roundCount + 1;
+                eventObject.CurrentRound = (_isIntro) ? 0 : _roundCount + 1;
             }
 
             _countDownTime--;
@@ -143,6 +154,7 @@ namespace TimingService
 		public void SetRoutine(Routine routine)
 		{
 			_routine = routine;
+			_roundCount = 0;
 
 			if (_routine is null) throw new RoutineNotFoundException("No routine has been specified");
 			if (routine.Rounds is null || routine.Rounds.Count == 0) throw new RoutineNotFoundException("The routine passed does not have any exercise periods defined in it");

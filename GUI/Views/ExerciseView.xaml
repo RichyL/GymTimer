@@ -9,8 +9,7 @@
              Title="Exercise">
 
     <ContentPage.Resources>
-        <Converters:TimeConverter x:Key="ShowTimeConverter" >
-        </Converters:TimeConverter>
+        <Converters:TimeConverter x:Key="ShowTimeConverter" ></Converters:TimeConverter>
     </ContentPage.Resources>
 
 
@@ -20,16 +19,27 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-        
+        <Label 
+            Text="{Binding State}"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            FontSize="80" />
 
-        <VerticalStackLayout IsVisible="{Binding IsIntro}">
-            <Label Text="Intro Time:"/>
-            <Label Text="{Binding IntroTime,Converter={StaticResource ShowTimeConverter}}"/>
-        </VerticalStackLayout>
+        <Label
+            Text="{Binding CurrentTime,Converter={StaticResource ShowTimeConverter}}"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            FontSize="100"
+            />
 
-        <Label Text="{Binding Summary}" />
+        <Label 
+            Text="{Binding Summary}"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            FontSize="80" />
 
-        <VerticalStackLayout IsVisible="{Binding IsExercising}">
+
+        <!--<VerticalStackLayout IsVisible="{Binding IsExercising}">
             <Label Text="Exercise Time:"/>
             <Label Text="{Binding ExerciseTime,Converter={StaticResource ShowTimeConverter}}"/>
         </VerticalStackLayout>
@@ -42,7 +52,7 @@
 
         <VerticalStackLayout IsVisible="{Binding IsFinished}">
             <Label Text="Finished!" />
-        </VerticalStackLayout>
+        </VerticalStackLayout>-->
 
         <HorizontalStackLayout>
             <Button Text="Start" Command="{Binding StartCommand}" />
