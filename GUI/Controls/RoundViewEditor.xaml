@@ -3,18 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModels="clr-namespace:GUI.ViewModels"
              x:Class="GUI.Controls.RoundViewEditor"
-             x:DataType="ViewModels:RoundViewModel" >
+             x:DataType="ViewModels:RoundEditViewModel" >
     
     <VerticalStackLayout>
 
-        <HorizontalStackLayout>
-            <Label Text="Exercise:" BackgroundColor="Red"/>
-            <Editor x:Name="ExerciseTimeEntry" BackgroundColor="Tomato" Text="{Binding ExerciseTime}"/>
+        <HorizontalStackLayout BackgroundColor="Red">
+            <Label Text="Exercise:"/>
+
+            <Label Text="Hour"/>
+            <Picker x:Name="ExerciseHourPicker" SelectedItem="{Binding ExerciseHour1}"/>
+
+            <Label Text="Minute"/>
+            <Picker x:Name="ExerciseMinutePicker" SelectedItem="{Binding ExerciseMinute}"/>
+
+            <Label Text="Second"/>
+            <Picker x:Name="ExerciseSecondPicker" SelectedItem="{Binding ExerciseSecond}"/>
+
         </HorizontalStackLayout>
 
-        <HorizontalStackLayout>
-            <Label Text="Rest:"  BackgroundColor="Green"/>
-            <Editor x:Name="RestTimeEntry" BackgroundColor="GreenYellow" Text="{Binding RestTime}"/>
+        <HorizontalStackLayout BackgroundColor="Green">
+            <Label Text="Rest:"/>
+            
+
+            <Label Text="Hour"/>
+            <Picker x:Name="RestHourPicker" SelectedItem="{Binding RestHour}"/>
+
+            <Label Text="Minute"/>
+            <Picker x:Name="RestMinutePicker" SelectedItem="{Binding RestMinute}"/>
+
+            <Label Text="Second"/>
+            <Picker x:Name="RestSecondPicker" SelectedItem="{Binding RestSecond}"/>
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentView>

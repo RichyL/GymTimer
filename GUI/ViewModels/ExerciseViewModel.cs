@@ -109,19 +109,21 @@ namespace GUI.ViewModels
 			IsExercising = e.IsExercise;
 			IsResting = e.IsRest;
 			IsFinished = e.IsFinished;
+
+			//display is 1-indexed
+			currentRound = e.CurrentRound;
 			if (IsIntro) IntroTime = e.TimeLeftInState;
 			if (IsExercising) ExerciseTime = e.TimeLeftInState;
 			if (IsResting) RestTime = e.TimeLeftInState;
 			
-			if(currentRound != e.CurrentRound)
-			{
-				if(IsExercising) originalExerciseTime=e.TimeLeftInState;
-				if(IsResting) originalRestTime = e.TimeLeftInState;
-			}
+			
+			//if(currentRound != e.CurrentRound)
+			//{
+			//	if(IsExercising) originalExerciseTime=e.TimeLeftInState;
+			//	if(IsResting) originalRestTime = e.TimeLeftInState;
+			//}
 
-            currentRound = e.CurrentRound;
 
-            //display 1-indexed 
             if (IsIntro)
             {
 				Summary = INTRO_SUMMARY;
@@ -168,6 +170,7 @@ namespace GUI.ViewModels
 			{
 				State = FINISHED;
 				CurrentTime = 0;
+				
             }
 
 			OnPropertyChanged(nameof(FillColour));
@@ -179,7 +182,7 @@ namespace GUI.ViewModels
 		[RelayCommand]
 		private void Start()
 		{
-			//_timingService.StartRoutine();
+			/*_timingService.StartRoutine()*/;
 
 			TickEventArgs tick = _timingService.HandleTick();
 			_timingService_TickEvent(this, tick);

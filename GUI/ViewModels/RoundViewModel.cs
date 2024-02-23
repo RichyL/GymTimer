@@ -12,6 +12,7 @@ namespace GUI.ViewModels
         [ObservableProperty]
         private int restTime;
 
+
         internal RoundViewModel(Round r)
         {
             ExerciseTime = r.ExerciseTime;

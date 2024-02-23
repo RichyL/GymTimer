@@ -10,7 +10,7 @@ namespace GUI.ValueConverters
 
 			int numberToConvert = (int) value;
 
-			if (numberToConvert == 0) return value;
+			if (numberToConvert == 0) return "00:00:00";
 
 			int hours = numberToConvert / 3600;
 			int minutes = (numberToConvert - (hours * 3600)) / 60;

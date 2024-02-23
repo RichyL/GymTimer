@@ -7,7 +7,7 @@ namespace GUI.ViewModels
 {
 	public partial class SummaryViewModel : ObservableObject, IQueryAttributable
 	{
-        public ObservableCollection<RoundViewModel> Rounds { get; set; }
+        public ObservableCollection<RoundViewModel> Rounds { get; private set; }
 
         [ObservableProperty]
         private string name;

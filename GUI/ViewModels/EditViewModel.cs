@@ -36,6 +36,8 @@ public partial class EditViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty]
     private int editRestTime = 0;
 
+
+
     public ObservableCollection<RoundEditViewModel> Rounds { get; set; }
 
 

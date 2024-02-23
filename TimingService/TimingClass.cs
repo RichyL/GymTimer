@@ -1,4 +1,5 @@
-﻿using System.Timers;
+﻿using System.Threading;
+using System.Timers;
 
 namespace TimingService
 {
@@ -85,8 +86,9 @@ namespace TimingService
 
 				if(_roundCount > _routine.Rounds.Count - 1)
 				{
-					//handle possible routine finish here
-					_isIntro = false; _isExercise = false; _isRest = false; _isFinished = true;
+                    //handle possible routine finish here
+                    StopRoutine(CancellationToken.None);
+                    _isIntro = false; _isExercise = false; _isRest = false; _isFinished = true;
                     eventObject.IsIntro = _isIntro;
                     eventObject.IsExercise = _isExercise;
                     eventObject.IsRest = _isRest;
@@ -94,6 +96,7 @@ namespace TimingService
                     eventObject.IsFinished=_isFinished;
 					eventObject.CurrentRound = _routine.Rounds.Count;
                     inTransition = true;
+                    
                 }
 				else
 				{
@@ -188,7 +191,7 @@ namespace TimingService
 
         public void ResetRoutine()
         {
-			StopRoutine(new CancellationToken() );
+			StopRoutine(CancellationToken.None );
 			SetRoutine(_routine);
 
         }
