@@ -41,13 +41,13 @@
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions>
                                 <Controls:RoundViewEditor x:DataType="ViewModels:RoundEditViewModel"
-                                    ExerciseHour="{Binding ExerciseHour1}"  
+                                    ExerciseHour="{Binding ExerciseHour}"  
                                                           ExerciseMinute ="{Binding ExerciseMinute}"
                                                           ExerciseSecond="{Binding ExerciseSecond}"
                                                           
-                                                          RestHour="10"
-                                                          RestMinute="13"
-                                                          RestSecond="57"
+                                                          RestHour="{Binding RestMinute}"
+                                                          RestMinute="{Binding RestMinute}"
+                                                          RestSecond="{Binding RestSecond}"
                                                           Grid.Column="0"
                                                           />
                                 <Button Text="Remove" Command="{Binding Path=RemoveRoundCommand, Source={RelativeSource AncestorType={x:Type ViewModels:EditViewModel}}}"  

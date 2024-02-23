@@ -11,7 +11,7 @@
             <Label Text="Exercise:"/>
 
             <Label Text="Hour"/>
-            <Picker x:Name="ExerciseHourPicker" SelectedItem="{Binding ExerciseHour1}"/>
+            <Picker x:Name="ExerciseHourPicker" SelectedItem="{Binding ExerciseHour}"/>
 
             <Label Text="Minute"/>
             <Picker x:Name="ExerciseMinutePicker" SelectedItem="{Binding ExerciseMinute}"/>

@@ -12,7 +12,7 @@ namespace GUI.ViewModels
         private int restTime;
 
         [ObservableProperty]
-        private int exerciseHour1;
+        private int exerciseHour;
 
         [ObservableProperty]
         private int exerciseMinute;
@@ -33,11 +33,15 @@ namespace GUI.ViewModels
         {
             ExerciseTime = eTime;
 
-            ExerciseHour1 = eTime / 3600;
-            ExerciseMinute = eTime - ((ExerciseHour1 * 3600) / 60);
-            ExerciseSecond = eTime - ((ExerciseHour1 * 3600) + (ExerciseMinute * 60));
+            ExerciseHour = eTime / 3600;
+            ExerciseMinute = eTime - ((ExerciseHour * 3600) / 60);
+            ExerciseSecond = eTime - ((ExerciseHour * 3600) + (ExerciseMinute * 60));
 
             RestTime = rTime;
+            RestHour = eTime / 3600;
+            RestMinute = eTime - ((RestHour * 3600) / 60);
+            RestSecond = eTime - ((RestHour * 3600) + (RestMinute * 60));
+
         }
 
         public bool IsValid
