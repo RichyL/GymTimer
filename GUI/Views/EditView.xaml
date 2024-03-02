@@ -27,7 +27,7 @@
 
             <HorizontalStackLayout>
                 <Label Text="Intro Time:" />
-                <Entry IsPassword="False" Text="{Binding IntroTime,FallbackValue='Enter an intro time'}" />
+                <Entry IsPassword="False" Keyboard="Numeric" Text="{Binding IntroTime,FallbackValue='Enter an intro time'}" />
             </HorizontalStackLayout>
 
 
@@ -37,7 +37,7 @@
                         <ViewCell>
                             <Grid >
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="3*" />
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions>
                                 <Controls:RoundViewEditor x:DataType="ViewModels:RoundEditViewModel"

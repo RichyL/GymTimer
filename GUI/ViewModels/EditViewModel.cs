@@ -82,7 +82,8 @@ public partial class EditViewModel : ObservableObject, IQueryAttributable
 
         foreach (RoundEditViewModel model in Rounds)
         {
-            routine.Rounds.Add(new Round(model.ExerciseTime, model.RestTime));
+            routine.Rounds.Add(new Round(model.ExerciseHour, model.ExerciseMinute, model.ExerciseSecond,
+                                         model.RestHour, model.RestMinute, model.RestSecond));
         }
 
 

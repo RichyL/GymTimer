@@ -20,20 +20,23 @@ public partial class RoundViewEditor : ContentView
     public static readonly BindableProperty ExerciseHourProperty = BindableProperty.Create(nameof(ExerciseHour), typeof(int), typeof(RoundViewEditor),
 	propertyChanged: (bindable, oldValue, newValue) => {
 	    var control = (RoundViewEditor)bindable;
-		control.ExerciseHourPicker.SelectedIndex = int.Parse(newValue.ToString()) - 1; }
+		//control.ExerciseHourPicker.SelectedIndex = int.Parse(newValue.ToString()) - 1;
+        }
     );
 
     public static readonly BindableProperty ExerciseMinuteProperty = BindableProperty.Create(nameof(ExerciseMinute), typeof(int), typeof(RoundViewEditor),
     propertyChanged: (bindable, oldValue, newValue) => {
+        //var control = (RoundViewEditor)bindable;
+        //control.ExerciseMinutePicker.SelectedIndex = int.Parse(newValue.ToString()) - 1;
         var control = (RoundViewEditor)bindable;
-        control.ExerciseMinutePicker.SelectedIndex = int.Parse(newValue.ToString()) - 1;
+        //control.ExerciseMinute = (int)newValue;
     }
     );
 
     public static readonly BindableProperty ExerciseSecondProperty = BindableProperty.Create(nameof(ExerciseSecond), typeof(int), typeof(RoundViewEditor),
     propertyChanged: (bindable, oldValue, newValue) => {
         var control = (RoundViewEditor)bindable;
-        control.ExerciseSecondPicker.SelectedIndex = int.Parse(newValue.ToString()) - 1;
+        //control.ExerciseSecondPicker.SelectedIndex = int.Parse(newValue.ToString()) - 1;
     }
     );
 
@@ -41,21 +44,21 @@ public partial class RoundViewEditor : ContentView
     public static readonly BindableProperty RestHourProperty = BindableProperty.Create(nameof(RestHour), typeof(int), typeof(RoundViewEditor),
    propertyChanged: (bindable, oldValue, newValue) => {
        var control = (RoundViewEditor)bindable;
-       control.RestHourPicker.SelectedIndex = int.Parse(newValue.ToString()) - 1;
+       //control.RestHourPicker.SelectedIndex = int.Parse(newValue.ToString()) - 1;
    }
    );
 
     public static readonly BindableProperty RestMinuteProperty = BindableProperty.Create(nameof(RestMinute), typeof(int), typeof(RoundViewEditor),
     propertyChanged: (bindable, oldValue, newValue) => {
         var control = (RoundViewEditor)bindable;
-        control.RestMinutePicker.SelectedIndex = int.Parse(newValue.ToString()) - 1;
+        //control.RestMinutePicker.SelectedIndex = int.Parse(newValue.ToString()) - 1;
     }
     );
 
     public static readonly BindableProperty RestSecondProperty = BindableProperty.Create(nameof(RestSecond), typeof(int), typeof(RoundViewEditor),
     propertyChanged: (bindable, oldValue, newValue) => {
         var control = (RoundViewEditor)bindable;
-        control.RestSecondPicker.SelectedIndex = int.Parse(newValue.ToString()) - 1;
+        //control.RestSecondPicker.SelectedIndex = int.Parse(newValue.ToString()) - 1;
     }
     );
 

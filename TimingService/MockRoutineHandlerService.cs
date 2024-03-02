@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,8 @@ public class MockRoutineHandlerService : IRoutineHandlingService
 
     public Task WriteRoutineInfoAsync(Routine routine)
     {
-        throw new NotImplementedException();
+        Debug.WriteLine(routine.ToString());
+
+        return Task.CompletedTask;
     }
 }
